@@ -2,7 +2,7 @@ import React from 'react';
 
 import * as entities from '../../constants/entity';
 import * as titles from '../../constants/entity-title';
-import ExcelImport from '../../components/excel-import/ExcelImport';
+import ExcelImport from '../../../common-modules/client/components/excel-import/ExcelImport';
 
 const title = 'העלאת קובץ';
 const supportedEntities = [
