@@ -1,6 +1,6 @@
 {
   "name": "att-manager",
-  "displayName": "נוכחות",
+  "displayName": "יומנט",
   "version": "1.0.0",
   "description": "MySQL, Express, React/Redux Boilerplate Application",
   "scripts": {
