@@ -30,7 +30,7 @@ class StudentKlass extends bookshelf.Model {
     }
 
     klass() {
-        return this.belongsTo(Teacher);
+        return this.belongsTo(Teacher, 'teacher_id', 'tz');
     }
 }
 

@@ -27,15 +27,15 @@ class Group extends bookshelf.Model {
     }
 
     klass() {
-        return this.belongsTo(Klass);
+        return this.belongsTo(Klass, 'klass_id', 'key');
     }
 
     teacher() {
-        return this.belongsTo(Teacher);
+        return this.belongsTo(Teacher, 'teacher_id', 'tz');
     }
 
     lesson() {
-        return this.belongsTo(Lesson);
+        return this.belongsTo(Lesson, 'lesson_id', 'key');
     }
 }
 

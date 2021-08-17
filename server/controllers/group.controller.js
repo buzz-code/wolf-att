@@ -13,9 +13,9 @@ export const { findById, store, update, destroy, uploadMultiple } = genericContr
 function getFindAllQuery(user_id, filters) {
     const dbQuery = new Group({ user_id })
         .query(qb => {
-            qb.leftJoin('klasses', 'klasses.id', 'groups.klass_id')
-            qb.leftJoin('teachers', 'teachers.id', 'groups.teacher_id')
-            qb.leftJoin('lessons', 'lessons.id', 'groups.lesson_id')
+            qb.leftJoin('klasses', 'klasses.key', 'groups.klass_id')
+            qb.leftJoin('teachers', 'teachers.tz', 'groups.teacher_id')
+            qb.leftJoin('lessons', 'lessons.key', 'groups.lesson_id')
             qb.select('groups.*')
         });
     applyFilters(dbQuery, filters);
@@ -43,9 +43,9 @@ export async function findAll(req, res) {
  */
 export async function getEditData(req, res) {
     const [klasses, teachers, lessons] = await Promise.all([
-        getListFromTable(Klass, req.currentUser.id),
-        getListFromTable(Teacher, req.currentUser.id),
-        getListFromTable(Lesson, req.currentUser.id),
+        getListFromTable(Klass, req.currentUser.id, 'key'),
+        getListFromTable(Teacher, req.currentUser.id, 'tz'),
+        getListFromTable(Lesson, req.currentUser.id, 'key'),
     ]);
     res.json({
         error: null,

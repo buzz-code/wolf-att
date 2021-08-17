@@ -28,19 +28,19 @@ class AttReport extends bookshelf.Model {
     }
 
     student() {
-        return this.belongsTo(Student);
+        return this.belongsTo(Student, 'student_tz', 'tz');
     }
 
     teacher() {
-        return this.belongsTo(Teacher);
+        return this.belongsTo(Teacher, 'teacher_id', 'tz');
     }
 
     lesson() {
-        return this.belongsTo(Lesson);
+        return this.belongsTo(Lesson, 'lesson_id', 'key');
     }
 
     attType() {
-        return this.belongsTo(AttType);
+        return this.belongsTo(AttType, 'att_type_id', 'key');
     }
 }
 

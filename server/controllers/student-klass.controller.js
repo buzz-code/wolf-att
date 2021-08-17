@@ -17,7 +17,7 @@ export async function findAll(req, res) {
     const dbQuery = new StudentKlass({ user_id: req.currentUser.id })
         .query(qb => {
             qb.leftJoin('students', 'students.tz', 'student_klasses.student_tz')
-            qb.leftJoin('klasses', 'klasses.id', 'student_klasses.klass_id')
+            qb.leftJoin('klasses', 'klasses.key', 'student_klasses.klass_id')
             qb.select('student_klasses.*')
         });
     applyFilters(dbQuery, req.query.filters);
@@ -34,7 +34,7 @@ export async function findAll(req, res) {
 export async function getEditData(req, res) {
     const [students, klasses] = await Promise.all([
         getListFromTable(Student, req.currentUser.id, 'tz'),
-        getListFromTable(Klass, req.currentUser.id),
+        getListFromTable(Klass, req.currentUser.id, 'key'),
     ]);
     res.json({
         error: null,

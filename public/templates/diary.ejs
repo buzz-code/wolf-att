@@ -51,7 +51,7 @@
                 <tr>
                     <th>ת.ז.</th>
                     <th>שם</th>
-                    <% for(var i = 0; i < lessonCount; i++) {%>
+                    <% for(var i = 0; i < group.lesson_count; i++) {%>
                         <th class="empty_cell">&nbsp;</th>
                     <% } %>
                 </tr>
@@ -59,7 +59,7 @@
                     <tr>
                         <td><%= student.tz %></td>
                         <td><%= student.name %></td>
-                        <% for(var i = 0; i < lessonCount; i++) {%>
+                        <% for(var i = 0; i < group.lesson_count; i++) {%>
                             <td class="empty_cell">&nbsp;</td>
                         <% } %>
                     </tr>

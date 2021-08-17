@@ -7,7 +7,7 @@ import { getPropsForAutoComplete } from '../../../common-modules/client/utils/fo
 
 const getColumns = ({ students, klasses }) => [
   { field: 'student_tz', title: 'תלמידה', ...getPropsForAutoComplete('student_tz', students, 'tz') },
-  { field: 'klass_id', title: 'כיתה', ...getPropsForAutoComplete('klass_id', klasses) },
+  { field: 'klass_id', title: 'כיתה', ...getPropsForAutoComplete('klass_id', klasses, 'key') },
 ];
 const getFilters = () => [
   { field: 'students.name', label: 'תלמידה', type: 'text', operator: 'like' },

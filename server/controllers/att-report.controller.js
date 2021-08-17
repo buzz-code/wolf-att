@@ -19,9 +19,9 @@ export async function findAll(req, res) {
     const dbQuery = new AttReport({ user_id: req.currentUser.id })
         .query(qb => {
             qb.leftJoin('students', 'students.tz', 'att_reports.student_tz')
-            qb.leftJoin('teachers', 'teachers.id', 'att_reports.teacher_id')
-            qb.leftJoin('lessons', 'lessons.id', 'att_reports.lesson_id')
-            qb.leftJoin('att_types', 'att_types.id', 'att_reports.att_type_id')
+            qb.leftJoin('teachers', 'teachers.tz', 'att_reports.teacher_id')
+            qb.leftJoin('lessons', 'lessons.key', 'att_reports.lesson_id')
+            qb.leftJoin('att_types', 'att_types.key', 'att_reports.att_type_id')
             qb.select('att_reports.*')
         });
     applyFilters(dbQuery, req.query.filters);
@@ -38,9 +38,9 @@ export async function findAll(req, res) {
 export async function getEditData(req, res) {
     const [students, teachers, lessons, attTypes] = await Promise.all([
         getListFromTable(Student, req.currentUser.id, 'tz'),
-        getListFromTable(Teacher, req.currentUser.id),
-        getListFromTable(Lesson, req.currentUser.id),
-        getListFromTable(AttType, req.currentUser.id),
+        getListFromTable(Teacher, req.currentUser.id, 'tz'),
+        getListFromTable(Lesson, req.currentUser.id, 'key'),
+        getListFromTable(AttType, req.currentUser.id, 'key'),
     ]);
     res.json({
         error: null,
