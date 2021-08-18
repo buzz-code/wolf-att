@@ -30,7 +30,7 @@ const config = {
         new webpack.NoEmitOnErrorsPlugin(),  // do not emit compiled assets that include errors
         new webpack.optimize.ModuleConcatenationPlugin(),
         new Dotenv(),
-        new BundleAnalyzerPlugin()
+        // new BundleAnalyzerPlugin()
     ],
     module: {
         rules: [
