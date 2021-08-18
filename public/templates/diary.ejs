@@ -14,6 +14,13 @@
                 margin: auto;
                 text-align: center;
             }
+            .header-wrapper {
+                display: flex;
+                justify-content: space-evenly;
+            }
+            .value {
+                font-weight: normal;
+            }
             table {
                 border-collapse: collapse;
                 width: 100%;
@@ -28,6 +35,9 @@
                 font-size: 1.25rem;
                 color: white;
             }
+            .student-name {
+                min-width: 75px;
+            }
             .empty_cell {
                 width: 75px;
             }
@@ -36,29 +46,37 @@
     <body>
         <%- include('header', { title: 'יומן נוכחות' }); %>
         <div class="container">
-            <% if (group.klass) { %>
-                <h2>כיתה: <%= group.klass.name %></h2>
-            <% } %>
-            <% if (group.teacher) { %>
-                <h2>מורה: <%= group.teacher.name %></h2>
-            <% } %>
-            <% if (group.lesson) { %>
-                <h2>שיעור: <%= group.lesson.name %></h2>
-            <% } %>
+            <div class="header-wrapper">
+                <% if (group.klass) { %>
+                    <h2>כיתה: 
+                        <span class="value"><%= group.klass.name %></span>
+                    </h2>
+                <% } %>
+                <% if (group.teacher) { %>
+                    <h2>מורה: 
+                        <span class="value"><%= group.teacher.name %></span>
+                    </h2>
+                <% } %>
+                <% if (group.lesson) { %>
+                    <h2>שיעור: 
+                        <span class="value"><%= group.lesson.name %></span>
+                    </h2>
+                <% } %>
+            </div>
 
             <table>
             <% if (students.length > 0) { %>
                 <tr>
-                    <th>ת.ז.</th>
+                    <th> </th>
                     <th>שם</th>
                     <% for(var i = 0; i < group.lesson_count; i++) {%>
                         <th class="empty_cell">&nbsp;</th>
                     <% } %>
                 </tr>
-                <% students.forEach(student => {%>
+                <% students.forEach((student, index) => {%>
                     <tr>
-                        <td><%= student.tz %></td>
-                        <td><%= student.name %></td>
+                        <td><%= index + 1 %></td>
+                        <td class="student-name"><%= student.name %></td>
                         <% for(var i = 0; i < group.lesson_count; i++) {%>
                             <td class="empty_cell">&nbsp;</td>
                         <% } %>
