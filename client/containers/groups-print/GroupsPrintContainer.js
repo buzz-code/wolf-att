@@ -10,7 +10,7 @@ const getColumns = ({ klasses, teachers, lessons }) => [
   { field: 'klass_id', title: 'כיתה', ...getPropsForAutoComplete('klass_id', klasses, 'key') },
   { field: 'teacher_id', title: 'מורה', ...getPropsForAutoComplete('teacher_id', teachers, 'tz') },
   { field: 'lesson_id', title: 'שיעור', ...getPropsForAutoComplete('lesson_id', lessons, 'key') },
-  { field: 'lesson_count', title: 'מספר שיעורים בשבוע', type: 'numeric' },
+  { field: 'lesson_count', title: 'מספר שיעורים', type: 'numeric' },
 ];
 const getFilters = () => [
   { field: 'klasses.name', label: 'כיתה', type: 'text', operator: 'like' },
