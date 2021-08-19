@@ -1,7 +1,7 @@
 {
   "name": "att-manager",
   "displayName": "יומנט",
-  "customDomain": false,
+  "customDomain": true,
   "version": "1.0.0",
   "description": "MySQL, Express, React/Redux Boilerplate Application",
   "scripts": {
