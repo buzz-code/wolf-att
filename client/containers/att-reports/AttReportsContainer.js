@@ -6,10 +6,10 @@ import * as crudAction from '../../../common-modules/client/actions/crudAction';
 import { getPropsForAutoComplete } from '../../../common-modules/client/utils/formUtil';
 
 const getColumns = ({ students, teachers, lessons, attTypes }) => [
-  { field: 'student_tz', title: 'תלמידה', ...getPropsForAutoComplete('student_tz', students, 'tz') },
-  { field: 'teacher_id', title: 'מורה', ...getPropsForAutoComplete('teacher_id', teachers, 'tz') },
-  { field: 'lesson_id', title: 'שיעור', ...getPropsForAutoComplete('lesson_id', lessons, 'key') },
-  { field: 'att_type_id', title: 'סוג דיווח', ...getPropsForAutoComplete('att_type_id', attTypes, 'key') },
+  { field: 'student_tz', title: 'תלמידה', columnOrder: 'students.name', ...getPropsForAutoComplete('student_tz', students, 'tz') },
+  { field: 'teacher_id', title: 'מורה', columnOrder: 'teachers.name', ...getPropsForAutoComplete('teacher_id', teachers, 'tz') },
+  { field: 'lesson_id', title: 'שיעור', columnOrder: 'lessons.name', ...getPropsForAutoComplete('lesson_id', lessons, 'key') },
+  { field: 'att_type_id', title: 'סוג דיווח', columnOrder: 'att_types.name', ...getPropsForAutoComplete('att_type_id', attTypes, 'key') },
   { field: 'enter_time', title: 'שעת כניסה' },
 ];
 const getFilters = () => [

@@ -6,8 +6,8 @@ import * as crudAction from '../../../common-modules/client/actions/crudAction';
 import { getPropsForAutoComplete } from '../../../common-modules/client/utils/formUtil';
 
 const getColumns = ({ students, klasses }) => [
-  { field: 'student_tz', title: 'תלמידה', ...getPropsForAutoComplete('student_tz', students, 'tz') },
-  { field: 'klass_id', title: 'כיתה', ...getPropsForAutoComplete('klass_id', klasses, 'key') },
+  { field: 'student_tz', title: 'תלמידה', columnOrder: 'students.name', ...getPropsForAutoComplete('student_tz', students, 'tz') },
+  { field: 'klass_id', title: 'כיתה', columnOrder: 'klasses.name', ...getPropsForAutoComplete('klass_id', klasses, 'key') },
 ];
 const getFilters = () => [
   { field: 'students.name', label: 'תלמידה', type: 'text', operator: 'like' },

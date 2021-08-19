@@ -7,9 +7,9 @@ import * as crudAction from '../../../common-modules/client/actions/crudAction';
 import { getPropsForAutoComplete } from '../../../common-modules/client/utils/formUtil';
 
 const getColumns = ({ klasses, teachers, lessons }) => [
-  { field: 'klass_id', title: 'כיתה', ...getPropsForAutoComplete('klass_id', klasses, 'key') },
-  { field: 'teacher_id', title: 'מורה', ...getPropsForAutoComplete('teacher_id', teachers, 'tz') },
-  { field: 'lesson_id', title: 'שיעור', ...getPropsForAutoComplete('lesson_id', lessons, 'key') },
+  { field: 'klass_id', title: 'כיתה', columnOrder: 'klasses.name', ...getPropsForAutoComplete('klass_id', klasses, 'key') },
+  { field: 'teacher_id', title: 'מורה', columnOrder: 'teachers.name', ...getPropsForAutoComplete('teacher_id', teachers, 'tz') },
+  { field: 'lesson_id', title: 'שיעור', columnOrder: 'lessons.name', ...getPropsForAutoComplete('lesson_id', lessons, 'key') },
   { field: 'lesson_count', title: 'מספר שיעורים', type: 'numeric' },
 ];
 const getFilters = () => [
