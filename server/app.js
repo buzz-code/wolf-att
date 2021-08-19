@@ -11,7 +11,7 @@ import PACKAGE from '../package.json';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-import webpackConfig from '../webpack/webpack.config.dev';
+import webpackConfig from '../common-modules/webpack/webpack.config.dev';
 
 if (process.env.NODE_ENV === 'development') {
   const compiler = webpack(webpackConfig);
@@ -37,7 +37,7 @@ if (process.env.NODE_ENV === 'development') {
   });
 } else {
   app.get('*', (req, res) => {
-    res.render(path.join(__dirname, '../public/index-prod'), { name: PACKAGE.name, title: PACKAGE.displayName });
+    res.render(path.join(__dirname, '../public/index-prod'), { name: PACKAGE.name, title: PACKAGE.displayName, customDomain: PACKAGE.customDomain });
   });
 }
 
