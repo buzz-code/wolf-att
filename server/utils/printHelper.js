@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import archiver from 'archiver';
 import temp from 'temp';
+import PDFMerger from 'pdf-merger-js';
+import { streamToBuffer } from '@jorgeferrero/stream-to-buffer';
 import { getFileName, getPdfStreamFromHtml, renderEjsTemplate } from '../../common-modules/server/utils/template';
 import { getDiaryDataByGroupId } from './queryHelper';
 import constant from '../../common-modules/server/config/directory';
@@ -40,4 +42,21 @@ export async function getDiaryZipStream(groups) {
     await archive.finalize();
     tempStream.close();
     return { fileStream: fs.createReadStream(tempStream.path), filename: 'יומנים' };
+}
+
+export async function getDiaryMergedPdfStream(groups) {
+    var merger = new PDFMerger();
+
+    for (const group of groups) {
+        const { fileStream, filename } = await getDiaryStream(group.id);
+        const filePath = temp.path({ prefix: filename, suffix: '.pdf' });
+        await fs.promises.writeFile(filePath, await streamToBuffer(fileStream));
+        merger.add(filePath);
+    }
+
+    const tempPath = temp.path({ suffix: '.pdf' });
+    await merger.save(tempPath);
+    const fileStream = fs.createReadStream(tempPath);
+
+    return { fileStream, filename: 'יומנים' };
 }

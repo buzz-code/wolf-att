@@ -5,7 +5,7 @@ import Teacher from '../models/teacher.model';
 import Lesson from '../models/lesson.model';
 import genericController, { applyFilters, fetchPage, fetchPagePromise } from '../../common-modules/server/controllers/generic.controller';
 import { getListFromTable } from '../../common-modules/server/utils/common';
-import { getDiaryStream, getDiaryZipStream } from '../utils/printHelper';
+import { getDiaryStream, getDiaryMergedPdfStream } from '../utils/printHelper';
 import { downloadFileFromStream } from '../../common-modules/server/utils/template';
 
 export const { findById, store, update, destroy, uploadMultiple } = genericController(Group);
@@ -82,6 +82,6 @@ export async function printAllDiaries(req, res) {
             error: 'לא ניתן להדפיס יותר מ100 יומנים במקביל'
         });
     }
-    const { fileStream, filename } = await getDiaryZipStream(data);
-    downloadFileFromStream(fileStream, filename, 'zip', res);
+    const { fileStream, filename } = await getDiaryMergedPdfStream(data);
+    downloadFileFromStream(fileStream, filename, 'pdf', res);
 }
