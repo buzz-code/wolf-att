@@ -32,7 +32,7 @@ export function getLessonByUserIdAndLessonId(user_id, key) {
 
 export function getStudentsByUserIdAndKlassId(user_id, klass_id) {
     return new StudentKlass().where({ user_id, klass_id })
-        .fetchAll({ withRelated: [{ student: function(query) { query.orderBy('name'); }}] })
+        .fetchAll({ withRelated: [{ student: function (query) { query.orderBy('name'); } }] })
         .then(res => res.toJSON())
         .then(res => res.map(item => item.student));
 }
@@ -49,5 +49,5 @@ export async function getDiaryDataByGroupId(group_id) {
         .then(res => res.toJSON());
     const students = await getStudentsByUserIdAndKlassId(group.user_id, group.klass_id);
 
-    return { group, students };
+    return { group, students: students.sort((a, b) => a.name.localeCompare(b.name)) };
 }
