@@ -33,7 +33,7 @@
                 -ms-justify-content: space-around;
                 justify-content: space-around;
             }
-            h2 {
+            h3 {
                 margin: 0;
             }
             .value {
@@ -51,7 +51,7 @@
             th {
                 /* background-color: #727fc9; */
                 border: 3px solid black;
-                font-size: 1.25rem;
+                /* font-size: 1.25rem; */
                 /* color: white; */
             }
             .student-name {
@@ -67,19 +67,19 @@
         <div class="container">
             <div class="header-wrapper">
                 <% if (group.klass) { %>
-                    <h2>כיתה: 
+                    <h3>כיתה: 
                         <span class="value"><%= group.klass.name %></span>
-                    </h2>
+                    </h3>
                 <% } %>
                 <% if (group.teacher) { %>
-                    <h2>מורה: 
+                    <h3>מורה: 
                         <span class="value"><%= group.teacher.name %></span>
-                    </h2>
+                    </h3>
                 <% } %>
                 <% if (group.lesson) { %>
-                    <h2>שיעור: 
+                    <h3>שיעור: 
                         <span class="value"><%= group.lesson.name %></span>
-                    </h2>
+                    </h3>
                 <% } %>
             </div>
 
