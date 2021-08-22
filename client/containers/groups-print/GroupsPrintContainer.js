@@ -17,6 +17,7 @@ const getFilters = () => [
   { field: 'teachers.name', label: 'מורה', type: 'text', operator: 'like' },
   { field: 'lessons.name', label: 'שיעור', type: 'text', operator: 'like' },
   { field: 'lesson_count', label: 'מספר שיעורים', type: 'number', operator: 'like' },
+  { field: 'diary_date', label: 'תאריך', type: 'date', operator: null },
 ];
 const getActions = (handlePrintAll, handlePrintOne) => [
   {
@@ -42,11 +43,11 @@ const GroupsContainer = ({ entity, title }) => {
   const [conditions, setConditions] = useState([]);
 
   const handlePrintAll = useCallback(() => {
-    dispatch(crudAction.download(entity, 'POST', 'print-all-diaries', { filters: conditions }));
+    dispatch(crudAction.download(entity, 'POST', 'print-all-diaries', { filters: conditions, diaryDate: conditions[4]?.value }));
   }, [entity, conditions]);
   const handlePrintOne = useCallback((e, rowData) => {
-    dispatch(crudAction.download(entity, 'POST', 'print-one-diary', rowData));
-  }, [entity]);
+    dispatch(crudAction.download(entity, 'POST', 'print-one-diary', { id: rowData.id, diaryDate: conditions[4]?.value }));
+  }, [entity, conditions]);
 
   const columns = useMemo(() => editData && getColumns(editData), [editData]);
   const filters = useMemo(() => getFilters(), []);

@@ -61,8 +61,8 @@ export async function getEditData(req, res) {
  * @returns {*}
  */
 export async function printOneDiary(req, res) {
-    const { body: { id } } = req;
-    const { fileStream, filename } = await getDiaryStream(id);
+    const { body: { id, diaryDate } } = req;
+    const { fileStream, filename } = await getDiaryStream(id, diaryDate);
     downloadFileFromStream(fileStream, filename, 'pdf', res);
 }
 
@@ -74,7 +74,7 @@ export async function printOneDiary(req, res) {
  * @returns {*}
  */
 export async function printAllDiaries(req, res) {
-    const { body: { filters } } = req;
+    const { body: { filters, diaryDate } } = req;
     const dbQuery = getFindAllQuery(req.currentUser.id, JSON.stringify(filters));
     const { data, total } = await fetchPagePromise({ dbQuery }, { page: 0, pageSize: 100 });
     if (total > 100) {
@@ -82,6 +82,6 @@ export async function printAllDiaries(req, res) {
             error: 'לא ניתן להדפיס יותר מ100 יומנים במקביל'
         });
     }
-    const { fileStream, filename } = await getDiaryMergedPdfStream(data);
+    const { fileStream, filename } = await getDiaryMergedPdfStream(data, diaryDate);
     downloadFileFromStream(fileStream, filename, 'pdf', res);
 }
