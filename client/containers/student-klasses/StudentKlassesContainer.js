@@ -9,9 +9,9 @@ const getColumns = ({ students, klasses }) => [
   { field: 'student_tz', title: 'תלמידה', columnOrder: 'students.name', ...getPropsForAutoComplete('student_tz', students, 'tz') },
   { field: 'klass_id', title: 'כיתה', columnOrder: 'klasses.name', ...getPropsForAutoComplete('klass_id', klasses, 'key') },
 ];
-const getFilters = () => [
-  { field: 'students.name', label: 'תלמידה', type: 'text', operator: 'like' },
-  { field: 'klasses.name', label: 'כיתה', type: 'text', operator: 'like' },
+const getFilters = ({ students, klasses }) => [
+  { field: 'students.name', label: 'תלמידה', type: 'list', operator: 'like', list: students, idField: 'tz' },
+  { field: 'klasses.name', label: 'כיתה', type: 'list', operator: 'like', list: klasses, idField: 'key' },
 ];
 
 const StudentKlassesContainer = ({ entity, title }) => {
@@ -21,7 +21,7 @@ const StudentKlassesContainer = ({ entity, title }) => {
   } = useSelector((state) => state[entity]);
 
   const columns = useMemo(() => getColumns(editData || {}), [editData]);
-  const filters = useMemo(() => getFilters(), []);
+  const filters = useMemo(() => getFilters(editData || {}), [editData]);
 
   useEffect(() => {
     dispatch(crudAction.customHttpRequest(entity, 'GET', 'get-edit-data'));

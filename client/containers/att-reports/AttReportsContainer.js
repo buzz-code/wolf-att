@@ -12,11 +12,11 @@ const getColumns = ({ students, teachers, lessons, attTypes }) => [
   { field: 'att_type_id', title: 'סוג דיווח', columnOrder: 'att_types.name', ...getPropsForAutoComplete('att_type_id', attTypes, 'key') },
   { field: 'enter_time', title: 'שעת כניסה' },
 ];
-const getFilters = () => [
-  { field: 'students.name', label: 'תלמידה', type: 'text', operator: 'like' },
-  { field: 'teachers.name', label: 'מורה', type: 'text', operator: 'like' },
-  { field: 'lessons.name', label: 'שיעור', type: 'text', operator: 'like' },
-  { field: 'att_types.name', label: 'סוג דיווח', type: 'text', operator: 'like' },
+const getFilters = ({ students, teachers, lessons, attTypes }) => [
+  { field: 'students.name', label: 'תלמידה', type: 'list', operator: 'like', list: students, idField: 'tz' },
+  { field: 'teachers.name', label: 'מורה', type: 'list', operator: 'like', list: teachers, idField: 'tz' },
+  { field: 'lessons.name', label: 'שיעור', type: 'list', operator: 'like', list: lessons, idField: 'key' },
+  { field: 'att_types.name', label: 'סוג דיווח', type: 'list', operator: 'like', list: attTypes, idField: 'key' },
   { field: 'enter_time', label: 'שעת כניסה', type: 'text', operator: 'like' },
 ];
 
@@ -27,7 +27,7 @@ const AttReportsContainer = ({ entity, title }) => {
   } = useSelector((state) => state[entity]);
 
   const columns = useMemo(() => getColumns(editData || {}), [editData]);
-  const filters = useMemo(() => getFilters(), []);
+  const filters = useMemo(() => getFilters(editData || {}), [editData]);
 
   useEffect(() => {
     dispatch(crudAction.customHttpRequest(entity, 'GET', 'get-edit-data'));

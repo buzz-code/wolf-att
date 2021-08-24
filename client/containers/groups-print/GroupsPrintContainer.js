@@ -12,10 +12,10 @@ const getColumns = ({ klasses, teachers, lessons }) => [
   { field: 'lesson_id', title: 'שיעור', columnOrder: 'lessons.name', ...getPropsForAutoComplete('lesson_id', lessons, 'key') },
   { field: 'lesson_count', title: 'מספר שיעורים', type: 'numeric' },
 ];
-const getFilters = () => [
-  { field: 'klasses.name', label: 'כיתה', type: 'text', operator: 'like' },
-  { field: 'teachers.name', label: 'מורה', type: 'text', operator: 'like' },
-  { field: 'lessons.name', label: 'שיעור', type: 'text', operator: 'like' },
+const getFilters = ({ klasses, teachers, lessons }) => [
+  { field: 'klasses.name', label: 'כיתה', type: 'list', operator: 'like', list: klasses, idField: 'key' },
+  { field: 'teachers.name', label: 'מורה', type: 'list', operator: 'like', list: teachers, idField: 'tz' },
+  { field: 'lessons.name', label: 'שיעור', type: 'list', operator: 'like', list: lessons, idField: 'key' },
   { field: 'lesson_count', label: 'מספר שיעורים', type: 'number', operator: 'like' },
   { field: 'diary_date', label: 'תאריך', type: 'date', operator: null },
 ];
@@ -50,7 +50,7 @@ const GroupsContainer = ({ entity, title }) => {
   }, [entity, conditions]);
 
   const columns = useMemo(() => getColumns(editData || {}), [editData]);
-  const filters = useMemo(() => getFilters(), []);
+  const filters = useMemo(() => getFilters(editData || {}), [editData]);
   const actions = useMemo(() => getActions(handlePrintAll, handlePrintOne), [handlePrintAll, handlePrintOne]);
 
   useEffect(() => {
