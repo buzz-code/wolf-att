@@ -20,7 +20,7 @@ const StudentKlassesContainer = ({ entity, title }) => {
     GET: { 'get-edit-data': editData },
   } = useSelector((state) => state[entity]);
 
-  const columns = useMemo(() => editData && getColumns(editData), [editData]);
+  const columns = useMemo(() => getColumns(editData || {}), [editData]);
   const filters = useMemo(() => getFilters(), []);
 
   useEffect(() => {

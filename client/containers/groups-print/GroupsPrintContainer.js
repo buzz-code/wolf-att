@@ -49,7 +49,7 @@ const GroupsContainer = ({ entity, title }) => {
     dispatch(crudAction.download(entity, 'POST', 'print-one-diary', { id: rowData.id, diaryDate: conditions[4]?.value }));
   }, [entity, conditions]);
 
-  const columns = useMemo(() => editData && getColumns(editData), [editData]);
+  const columns = useMemo(() => getColumns(editData || {}), [editData]);
   const filters = useMemo(() => getFilters(), []);
   const actions = useMemo(() => getActions(handlePrintAll, handlePrintOne), [handlePrintAll, handlePrintOne]);
 
