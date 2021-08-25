@@ -8,13 +8,13 @@ const router = genericRoute(groupCtrl, router => {
         });
 
     router.route('/print-one-diary')
-        .post((req, res) => {
-            groupCtrl.printOneDiary(req, res);
+        .post(async (req, res) => {
+            await groupCtrl.printOneDiary(req, res);
         });
 
     router.route('/print-all-diaries')
-        .post((req, res) => {
-            groupCtrl.printAllDiaries(req, res);
+        .post(async (req, res) => {
+            await groupCtrl.printAllDiaries(req, res);
         });
 
 });
