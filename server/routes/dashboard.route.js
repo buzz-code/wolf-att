@@ -1,6 +1,6 @@
 import express from 'express';
 import * as dashboardCtrl from '../controllers/dashboard.controller';
-import isAuthenticated from '../middlewares/authenticate';
+import isAuthenticated from '../../common-modules/server/middlewares/authenticate';
 
 const router = express.Router();
 

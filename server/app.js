@@ -2,9 +2,9 @@ import path from 'path';
 import app from '../common-modules/server/config/express';
 import routes from './routes/index.route';
 import swagger from '../common-modules/server/config/swagger';
-import * as errorHandler from './middlewares/errorHandler';
-import joiErrorHandler from './middlewares/joiErrorHandler';
-import requestLogger from './middlewares/requestLogger';
+import * as errorHandler from '../common-modules/server/middlewares/errorHandler';
+import joiErrorHandler from '../common-modules/server/middlewares/joiErrorHandler';
+import requestLogger from '../common-modules/server/middlewares/requestLogger';
 import PACKAGE from '../package.json';
 
 // enable webpack hot module replacement in development mode

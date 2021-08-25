@@ -1,5 +1,5 @@
 import express from 'express';
-import isAuthenticated from '../middlewares/authenticate';
+import isAuthenticated from '../../common-modules/server/middlewares/authenticate';
 import * as reportEditCtrl from '../controllers/report-edit.controller';
 import validate from '../../common-modules/server/config/joi.validate';
 import schema from '../../common-modules/server/utils/validator';
