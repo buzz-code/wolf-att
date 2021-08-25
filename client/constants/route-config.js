@@ -26,6 +26,7 @@ import Klasses from '../containers/klasses/KlassesContainer';
 import StudentKlasses from '../containers/student-klasses/StudentKlassesContainer';
 import Groups from '../containers/groups/GroupsContainer';
 import AttTypes from '../containers/att-types/AttTypesContainer';
+import KlassTypes from '../containers/klass-types/KlassTypesContainer';
 import AttReports from '../containers/att-reports/AttReportsContainer';
 import ReportEdit from '../containers/report-edit/ReportEditContainer';
 import GroupsPrint from '../containers/groups-print/GroupsPrintContainer';
@@ -88,6 +89,13 @@ export default [
       icon: MenuIcon,
       title: titles.ATT_TYPES,
       props: { entity: entities.ATT_TYPES, title: titles.ATT_TYPES },
+    },
+    {
+      path: '/klass-types',
+      component: KlassTypes,
+      icon: MenuIcon,
+      title: titles.KLASS_TYPES,
+      props: { entity: entities.KLASS_TYPES, title: titles.KLASS_TYPES },
     },
     {
       path: '/att-reports',

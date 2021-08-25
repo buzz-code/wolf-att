@@ -6,6 +6,7 @@ export const KLASSS = 'klasses';
 export const STUDENT_KLASSES = 'student-klasses';
 export const GROUPS = 'groups';
 export const ATT_TYPES = 'att-types';
+export const KLASS_TYPES = 'klass-types';
 export const ATT_REPORTS = 'att-reports';
 export const REPORT_EDIT = 'report-edit';
 export const STUDENT_REPORTS = 'reports/getStudentReport';
