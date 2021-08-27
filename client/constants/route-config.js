@@ -28,6 +28,7 @@ import Groups from '../containers/groups/GroupsContainer';
 import AttTypes from '../containers/att-types/AttTypesContainer';
 import KlassTypes from '../containers/klass-types/KlassTypesContainer';
 import AttReports from '../containers/att-reports/AttReportsContainer';
+import StudentKlassesKlassType from '../containers/student-klasses-klass-type/StudentKlassesKlassTypeContainer';
 import ReportEdit from '../containers/report-edit/ReportEditContainer';
 import GroupsPrint from '../containers/groups-print/GroupsPrintContainer';
 import ExcelImport from '../containers/excel-import/ExcelImportContainer';
@@ -113,6 +114,13 @@ export default [
       icon: PrintIcon,
       title: titles.GROUPS_PRINT,
       props: { entity: entities.GROUPS, title: titles.GROUPS_PRINT },
+    },
+    {
+      path: '/student-klasses-klass-type',
+      component: StudentKlassesKlassType,
+      icon: GroupWorkIcon,
+      title: titles.STUDENT_KLASSES_KLASS_TYPE,
+      props: { entity: entities.STUDENT_KLASSES_KLASS_TYPE, title: titles.STUDENT_KLASSES_KLASS_TYPE },
     },
     {
       path: '/report-edit',

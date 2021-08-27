@@ -6,6 +6,11 @@ const router = genericRoute(studentKlassCtrl, router => {
         .get((req, res) => {
             studentKlassCtrl.getEditData(req, res);
         });
+        
+    router.route('/report-by-klass-type')
+        .get((req, res) => {
+            studentKlassCtrl.reportByKlassType(req, res);
+        });
 });
 
 export default router;
