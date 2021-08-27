@@ -1,5 +1,6 @@
 import bookshelf from '../../common-modules/server/config/bookshelf';
 import User from './user.model';
+import KlassType from './klass-type.model';
 
 const TABLE_NAME = 'klasses';
 
@@ -21,6 +22,10 @@ class Klass extends bookshelf.Model {
 
     user() {
         return this.belongsTo(User);
+    }
+
+    klassType() {
+        return this.belongsTo(KlassType);
     }
 }
 
