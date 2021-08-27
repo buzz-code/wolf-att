@@ -11,7 +11,8 @@ import { downloadFileFromStream } from '../../common-modules/server/utils/templa
 export const { findById, store, update, destroy, uploadMultiple } = genericController(Group);
 
 function getFindAllQuery(user_id, filters) {
-    const dbQuery = new Group({ user_id })
+    const dbQuery = new Group()
+        .where({ 'groups.user_id': user_id })
         .query(qb => {
             qb.leftJoin('klasses', 'klasses.key', 'groups.klass_id')
             qb.leftJoin('teachers', 'teachers.tz', 'groups.teacher_id')
