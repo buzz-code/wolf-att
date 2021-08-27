@@ -40,7 +40,7 @@ const GroupsContainer = ({ entity, title }) => {
     GET: { 'get-edit-data': editData },
   } = useSelector((state) => state[entity]);
 
-  const [conditions, setConditions] = useState([]);
+  const [conditions, setConditions] = useState({});
 
   const handlePrintAll = useCallback(() => {
     dispatch(crudAction.download(entity, 'POST', 'print-all-diaries', { filters: conditions, diaryDate: conditions[4]?.value }));
