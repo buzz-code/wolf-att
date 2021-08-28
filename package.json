@@ -1,6 +1,6 @@
 {
-  "name": "att-manager",
-  "displayName": "יומנט",
+  "name": "wolf-att",
+  "displayName": "נוכחות מורות",
   "customDomain": true,
   "version": "1.0.0",
   "description": "MySQL, Express, React/Redux Boilerplate Application",
