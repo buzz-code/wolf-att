@@ -5,19 +5,57 @@ import Table from '../../../common-modules/client/components/table/Table';
 import * as crudAction from '../../../common-modules/client/actions/crudAction';
 import { getPropsForAutoComplete } from '../../../common-modules/client/utils/formUtil';
 
-const getColumns = ({ students, teachers, lessons, attTypes }) => [
-  { field: 'student_tz', title: 'תלמידה', columnOrder: 'students.name', ...getPropsForAutoComplete('student_tz', students, 'tz') },
-  { field: 'teacher_id', title: 'מורה', columnOrder: 'teachers.name', ...getPropsForAutoComplete('teacher_id', teachers, 'tz') },
-  { field: 'lesson_id', title: 'שיעור', columnOrder: 'lessons.name', ...getPropsForAutoComplete('lesson_id', lessons, 'key') },
-  { field: 'att_type_id', title: 'סוג דיווח', columnOrder: 'att_types.name', ...getPropsForAutoComplete('att_type_id', attTypes, 'key') },
-  { field: 'enter_time', title: 'שעת כניסה' },
+const getColumns = ({ students, teachers, lessons }) => [
+  {
+    field: 'student_tz',
+    title: 'תלמידה',
+    columnOrder: 'students.name',
+    ...getPropsForAutoComplete('student_tz', students, 'tz'),
+  },
+  {
+    field: 'teacher_id',
+    title: 'מורה',
+    columnOrder: 'teachers.name',
+    ...getPropsForAutoComplete('teacher_id', teachers, 'tz'),
+  },
+  {
+    field: 'lesson_id',
+    title: 'שיעור',
+    columnOrder: 'lessons.name',
+    ...getPropsForAutoComplete('lesson_id', lessons, 'key'),
+  },
+  { field: 'abs_count', title: 'חיסורים', type: 'numeric' },
+  { field: 'approved_abs_count', title: 'חיסורים מאושרים', type: 'numeric' },
+  { field: 'comments', title: 'הערות' },
 ];
-const getFilters = ({ students, teachers, lessons, attTypes }) => [
-  { field: 'students.name', label: 'תלמידה', type: 'list', operator: 'like', list: students, idField: 'tz' },
-  { field: 'teachers.name', label: 'מורה', type: 'list', operator: 'like', list: teachers, idField: 'tz' },
-  { field: 'lessons.name', label: 'שיעור', type: 'list', operator: 'like', list: lessons, idField: 'key' },
-  { field: 'att_types.name', label: 'סוג דיווח', type: 'list', operator: 'like', list: attTypes, idField: 'key' },
-  { field: 'enter_time', label: 'שעת כניסה', type: 'text', operator: 'like' },
+const getFilters = ({ students, teachers, lessons }) => [
+  {
+    field: 'students.name',
+    label: 'תלמידה',
+    type: 'list',
+    operator: 'like',
+    list: students,
+    idField: 'tz',
+  },
+  {
+    field: 'teachers.name',
+    label: 'מורה',
+    type: 'list',
+    operator: 'like',
+    list: teachers,
+    idField: 'tz',
+  },
+  {
+    field: 'lessons.name',
+    label: 'שיעור',
+    type: 'list',
+    operator: 'like',
+    list: lessons,
+    idField: 'key',
+  },
+  { field: 'abs_count', label: 'חיסורים', type: 'text', operator: 'like' },
+  { field: 'approved_abs_count', label: 'חיסורים מאושרים', type: 'text', operator: 'like' },
+  { field: 'comments', label: 'הערות', type: 'text', operator: 'like' },
 ];
 
 const AttReportsContainer = ({ entity, title }) => {

@@ -1,5 +1,3 @@
 * add report editor
-* delete att-report
 * delete att-type
-* add att-report table
 * add yemot handler
