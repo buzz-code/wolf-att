@@ -25,7 +25,6 @@ import Lessons from '../containers/lessons/LessonsContainer';
 import Klasses from '../containers/klasses/KlassesContainer';
 import StudentKlasses from '../containers/student-klasses/StudentKlassesContainer';
 import Groups from '../containers/groups/GroupsContainer';
-import AttTypes from '../containers/att-types/AttTypesContainer';
 import KlassTypes from '../containers/klass-types/KlassTypesContainer';
 import AttReports from '../containers/att-reports/AttReportsContainer';
 import StudentKlassesKlassType from '../containers/student-klasses-klass-type/StudentKlassesKlassTypeContainer';
@@ -85,13 +84,6 @@ export default [
       props: { entity: entities.GROUPS, title: titles.GROUPS },
     },
     {
-      path: '/att-types',
-      component: AttTypes,
-      icon: MenuIcon,
-      title: titles.ATT_TYPES,
-      props: { entity: entities.ATT_TYPES, title: titles.ATT_TYPES },
-    },
-    {
       path: '/klass-types',
       component: KlassTypes,
       icon: MenuIcon,
@@ -120,7 +112,10 @@ export default [
       component: StudentKlassesKlassType,
       icon: GroupWorkIcon,
       title: titles.STUDENT_KLASSES_KLASS_TYPE,
-      props: { entity: entities.STUDENT_KLASSES_KLASS_TYPE, title: titles.STUDENT_KLASSES_KLASS_TYPE },
+      props: {
+        entity: entities.STUDENT_KLASSES_KLASS_TYPE,
+        title: titles.STUDENT_KLASSES_KLASS_TYPE,
+      },
     },
     {
       path: '/report-edit',

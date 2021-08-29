@@ -20,7 +20,6 @@ const supportedEntities = [
     title: titles.GROUPS,
     columns: ['klass_id', 'teacher_id', 'lesson_id'],
   },
-  { value: entities.ATT_TYPES, title: titles.ATT_TYPES, columns: ['key', 'name'] },
 ];
 
 const ExcelImportContainer = () => {

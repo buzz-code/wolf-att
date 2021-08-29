@@ -1,5 +1,4 @@
 import bookshelf from '../../common-modules/server/config/bookshelf';
-import AttType from './att-type.model';
 import Lesson from './lesson.model';
 import Student from './student.model';
 import Teacher from './teacher.model';
@@ -37,10 +36,6 @@ class AttReport extends bookshelf.Model {
 
     lesson() {
         return this.belongsTo(Lesson, 'lesson_id', 'key');
-    }
-
-    attType() {
-        return this.belongsTo(AttType, 'att_type_id', 'key');
     }
 }
 

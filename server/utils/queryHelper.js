@@ -1,6 +1,5 @@
 import Klass from "../models/klass.model";
 import Teacher from "../models/teacher.model";
-import AttType from "../models/att-type.model";
 import User from "../models/user.model";
 import StudentKlass from "../models/student-klass.model";
 import Lesson from "../models/lesson.model";
@@ -35,12 +34,6 @@ export function getStudentsByUserIdAndKlassId(user_id, klass_id) {
         .fetchAll({ withRelated: [{ student: function (query) { query.orderBy('name'); } }] })
         .then(res => res.toJSON())
         .then(res => res.map(item => item.student));
-}
-
-export function getAttTypesByUserId(user_id) {
-    return new AttType().where({ user_id, is_active: true, is_for_teacher: true })
-        .fetchAll()
-        .then(res => res.toJSON());
 }
 
 export async function getDiaryDataByGroupId(group_id) {

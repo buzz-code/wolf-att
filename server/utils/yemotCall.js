@@ -48,7 +48,6 @@ export class YemotCall extends CallBase {
                     const attReport = {
                         ...baseReport,
                         student_tz: studentId,
-                        att_type_id: this.params.studentReports[studentId],
                     };
                     await new AttReport(attReport).save();
                 }
@@ -119,28 +118,28 @@ export class YemotCall extends CallBase {
     }
 
     async getStudentReports(klass) {
-        const students = await queryHelper.getStudentsByUserIdAndKlassId(this.user.id, klass.id);
-        const types = await queryHelper.getAttTypesByUserId(this.user.id);
-        const attTypeMessage = types.map(item => format(this.texts.forAttendanceTypeXPressY, item.name, item.key)).join(', ');
-        const prevStudentMessage = format(this.texts.forAttendanceTypeXPressY, this.texts.prevStudent, 7);
+        // const students = await queryHelper.getStudentsByUserIdAndKlassId(this.user.id, klass.id);
+        // const types = await queryHelper.getAttTypesByUserId(this.user.id);
+        // const attTypeMessage = types.map(item => format(this.texts.forAttendanceTypeXPressY, item.name, item.key)).join(', ');
+        // const prevStudentMessage = format(this.texts.forAttendanceTypeXPressY, this.texts.prevStudent, 7);
 
-        let isFirstTime = true;
-        this.params.studentReports = {};
-        for (let index = 0; index < students.length; index++) {
-            const student = students[index];
-            const attTypeMessageForCurrent = index === 0 ? attTypeMessage : attTypeMessage + prevStudentMessage;
-            await this.send(
-                isFirstTime ? this.id_list_message({ type: 'text', text: this.texts.startStudentList }) : undefined,
-                this.read({ type: 'text', text: student.name + ': ' + attTypeMessageForCurrent },
-                    'attType', 'tap', { max: 1, min: 1, block_asterisk: true })
-            );
-            isFirstTime = false;
-            const attType = Number(this.params.attType);
-            if (attType === 7) {
-                index -= 2;
-            } else {
-                this.params.studentReports[student.tz] = types.find(item => item.key == attType).id;
-            }
-        }
+        // let isFirstTime = true;
+        // this.params.studentReports = {};
+        // for (let index = 0; index < students.length; index++) {
+        //     const student = students[index];
+        //     const attTypeMessageForCurrent = index === 0 ? attTypeMessage : attTypeMessage + prevStudentMessage;
+        //     await this.send(
+        //         isFirstTime ? this.id_list_message({ type: 'text', text: this.texts.startStudentList }) : undefined,
+        //         this.read({ type: 'text', text: student.name + ': ' + attTypeMessageForCurrent },
+        //             'attType', 'tap', { max: 1, min: 1, block_asterisk: true })
+        //     );
+        //     isFirstTime = false;
+        //     const attType = Number(this.params.attType);
+        //     if (attType === 7) {
+        //         index -= 2;
+        //     } else {
+        //         this.params.studentReports[student.tz] = types.find(item => item.key == attType).id;
+        //     }
+        // }
     }
 }
