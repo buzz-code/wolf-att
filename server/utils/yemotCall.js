@@ -18,8 +18,10 @@ export class YemotCall extends CallBase {
         confirmLesson: 'שיעור {0}, לאישור הקישי 1, לתיקון הקישי 2',
         lessonIdNotFound: 'קוד שיעור לא נמצא',
         startStudentList: 'כעת תושמע רשימת התלמידות',
-        prevStudent: 'מעבר לתלמידה הקודמת',
-        forAttendanceTypeXPressY: 'ל{0} הקישי {1}, ',
+        typeAbsences: 'הקישי את מספר החיסורים לתלמידה',
+        typeApprovedAbsences: 'הקישי את מספר החיסורים המאושרים לתלמידה',
+        // prevStudent: 'מעבר לתלמידה הקודמת',
+        // forAttendanceTypeXPressY: 'ל{0} הקישי {1}, ',
         dataWasNotSaved: 'ארעה שגיאה, נסי שוב במועד מאוחר יותר',
         dataWasSavedSuccessfully: 'רישום הנוכחות הסתיים בהצלחה',
     }
@@ -42,12 +44,15 @@ export class YemotCall extends CallBase {
                     user_id: this.user.id,
                     teacher_id: teacher.id,
                     lesson_id: lesson.id,
-                    enter_time: new Date(),
+                    report_date: new Date().toISOString().substr(0, 10),
                 };
                 for (const studentId in this.params.studentReports) {
                     const attReport = {
                         ...baseReport,
                         student_tz: studentId,
+                        abs_count: this.params.studentReports[studentId].abs_count,
+                        approved_abs_count: this.params.studentReports[studentId].approved_abs_count,
+                        comments: '',
                     };
                     await new AttReport(attReport).save();
                 }
@@ -118,28 +123,28 @@ export class YemotCall extends CallBase {
     }
 
     async getStudentReports(klass) {
-        // const students = await queryHelper.getStudentsByUserIdAndKlassId(this.user.id, klass.id);
-        // const types = await queryHelper.getAttTypesByUserId(this.user.id);
-        // const attTypeMessage = types.map(item => format(this.texts.forAttendanceTypeXPressY, item.name, item.key)).join(', ');
-        // const prevStudentMessage = format(this.texts.forAttendanceTypeXPressY, this.texts.prevStudent, 7);
+        const students = await queryHelper.getStudentsByUserIdAndKlassId(this.user.id, klass.id);
 
-        // let isFirstTime = true;
-        // this.params.studentReports = {};
-        // for (let index = 0; index < students.length; index++) {
-        //     const student = students[index];
-        //     const attTypeMessageForCurrent = index === 0 ? attTypeMessage : attTypeMessage + prevStudentMessage;
-        //     await this.send(
-        //         isFirstTime ? this.id_list_message({ type: 'text', text: this.texts.startStudentList }) : undefined,
-        //         this.read({ type: 'text', text: student.name + ': ' + attTypeMessageForCurrent },
-        //             'attType', 'tap', { max: 1, min: 1, block_asterisk: true })
-        //     );
-        //     isFirstTime = false;
-        //     const attType = Number(this.params.attType);
-        //     if (attType === 7) {
-        //         index -= 2;
-        //     } else {
-        //         this.params.studentReports[student.tz] = types.find(item => item.key == attType).id;
-        //     }
-        // }
+        let isFirstTime = true;
+        this.params.studentReports = {};
+        for (let index = 0; index < students.length; index++) {
+            const student = students[index];
+            await this.send(
+                isFirstTime ? this.id_list_message({ type: 'text', text: this.texts.startStudentList }) : undefined,
+                this.read({ type: 'text', text: student.name + ': ' + this.texts.typeAbsences },
+                    'absCount', 'tap', { max: 2, min: 1, block_asterisk: true })
+            );
+            await this.send(
+                isFirstTime ? this.id_list_message({ type: 'text', text: this.texts.startStudentList }) : undefined,
+                this.read({ type: 'text', text: this.texts.typeApprovedAbsences },
+                    'approvedAbsCount', 'tap', { max: 2, min: 1, block_asterisk: true })
+            );
+
+            isFirstTime = false;
+            this.params.studentReports[student.tz] = {
+                abs_count: this.params.absCount,
+                approved_abs_count: this.params.approvedAbsCount,
+            };
+        }
     }
 }
