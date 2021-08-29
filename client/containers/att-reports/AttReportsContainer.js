@@ -24,6 +24,7 @@ const getColumns = ({ students, teachers, lessons }) => [
     columnOrder: 'lessons.name',
     ...getPropsForAutoComplete('lesson_id', lessons, 'key'),
   },
+  { field: 'report_date', title: 'תאריך הדיווח', type: 'date' },
   { field: 'abs_count', title: 'חיסורים', type: 'numeric' },
   { field: 'approved_abs_count', title: 'חיסורים מאושרים', type: 'numeric' },
   { field: 'comments', title: 'הערות' },
@@ -53,6 +54,8 @@ const getFilters = ({ students, teachers, lessons }) => [
     list: lessons,
     idField: 'key',
   },
+  { field: 'report_date', label: 'מתאריך', type: 'date', operator: 'date-before' },
+  { field: 'report_date', label: 'עד תאריך', type: 'date', operator: 'date-after' },
   { field: 'abs_count', label: 'חיסורים', type: 'text', operator: 'like' },
   { field: 'approved_abs_count', label: 'חיסורים מאושרים', type: 'text', operator: 'like' },
   { field: 'comments', label: 'הערות', type: 'text', operator: 'like' },
@@ -71,7 +74,23 @@ const AttReportsContainer = ({ entity, title }) => {
     dispatch(crudAction.customHttpRequest(entity, 'GET', 'get-edit-data'));
   }, []);
 
-  return <Table entity={entity} title={title} columns={columns} filters={filters} />;
+  const manipulateDataToSave = (dataToSave) => ({
+    ...dataToSave,
+    report_date:
+      dataToSave.report_date instanceof Date
+        ? dataToSave.report_date.toISOString().substr(0, 10)
+        : dataToSave.report_date.substr(0, 10),
+  });
+
+  return (
+    <Table
+      entity={entity}
+      title={title}
+      columns={columns}
+      filters={filters}
+      manipulateDataToSave={manipulateDataToSave}
+    />
+  );
 };
 
 export default AttReportsContainer;
