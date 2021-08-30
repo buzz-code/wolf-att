@@ -76,13 +76,13 @@ export default [
       title: titles.STUDENT_KLASSES,
       props: { entity: entities.STUDENT_KLASSES, title: titles.STUDENT_KLASSES },
     },
-    {
-      path: '/groups',
-      component: Groups,
-      icon: GroupAddIcon,
-      title: titles.GROUPS,
-      props: { entity: entities.GROUPS, title: titles.GROUPS },
-    },
+    // {
+    //   path: '/groups',
+    //   component: Groups,
+    //   icon: GroupAddIcon,
+    //   title: titles.GROUPS,
+    //   props: { entity: entities.GROUPS, title: titles.GROUPS },
+    // },
     {
       path: '/klass-types',
       component: KlassTypes,
@@ -100,13 +100,13 @@ export default [
   ],
   [
     { path: '/excel-import', component: ExcelImport, icon: FileCopyIcon, title: 'העלאת קבצים' },
-    {
-      path: '/groups-print',
-      component: GroupsPrint,
-      icon: PrintIcon,
-      title: titles.GROUPS_PRINT,
-      props: { entity: entities.GROUPS, title: titles.GROUPS_PRINT },
-    },
+    // {
+    //   path: '/groups-print',
+    //   component: GroupsPrint,
+    //   icon: PrintIcon,
+    //   title: titles.GROUPS_PRINT,
+    //   props: { entity: entities.GROUPS, title: titles.GROUPS_PRINT },
+    // },
     {
       path: '/student-klasses-klass-type',
       component: StudentKlassesKlassType,
