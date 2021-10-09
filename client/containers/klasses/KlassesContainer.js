@@ -8,12 +8,24 @@ import { getPropsForAutoComplete } from '../../../common-modules/client/utils/fo
 const getColumns = ({ klassTypes }) => [
   { field: 'key', title: 'מזהה' },
   { field: 'name', title: 'שם' },
-  { field: 'klass_type_id', title: 'סוג כיתה', columnOrder: 'klass_types.name', ...getPropsForAutoComplete('klass_type_id', klassTypes) },
+  {
+    field: 'klass_type_id',
+    title: 'סוג כיתה',
+    columnOrder: 'klass_types.name',
+    ...getPropsForAutoComplete('klass_type_id', klassTypes),
+  },
 ];
 const getFilters = ({ klassTypes }) => [
   { field: 'key', label: 'מזהה', type: 'text', operator: 'like' },
   { field: 'name', label: 'שם', type: 'text', operator: 'like' },
-  { field: 'klass_types.name', label: 'סוג כיתה', type: 'list', operator: 'like', list: klassTypes, idField: 'id' },
+  {
+    field: 'klass_types.name',
+    label: 'סוג כיתה',
+    type: 'list',
+    operator: 'eq',
+    list: klassTypes,
+    idField: 'id',
+  },
 ];
 
 const KlassesContainer = ({ entity, title }) => {

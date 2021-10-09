@@ -6,12 +6,36 @@ import * as crudAction from '../../../common-modules/client/actions/crudAction';
 import { getPropsForAutoComplete } from '../../../common-modules/client/utils/formUtil';
 
 const getColumns = ({ students, klasses }) => [
-  { field: 'student_tz', title: 'תלמידה', columnOrder: 'students.name', ...getPropsForAutoComplete('student_tz', students, 'tz') },
-  { field: 'klass_id', title: 'כיתה', columnOrder: 'klasses.name', ...getPropsForAutoComplete('klass_id', klasses, 'key') },
+  {
+    field: 'student_tz',
+    title: 'תלמידה',
+    columnOrder: 'students.name',
+    ...getPropsForAutoComplete('student_tz', students, 'tz'),
+  },
+  {
+    field: 'klass_id',
+    title: 'כיתה',
+    columnOrder: 'klasses.name',
+    ...getPropsForAutoComplete('klass_id', klasses, 'key'),
+  },
 ];
 const getFilters = ({ students, klasses }) => [
-  { field: 'students.name', label: 'תלמידה', type: 'list', operator: 'like', list: students, idField: 'tz' },
-  { field: 'klasses.name', label: 'כיתה', type: 'list', operator: 'like', list: klasses, idField: 'key' },
+  {
+    field: 'students.name',
+    label: 'תלמידה',
+    type: 'list',
+    operator: 'eq',
+    list: students,
+    idField: 'tz',
+  },
+  {
+    field: 'klasses.name',
+    label: 'כיתה',
+    type: 'list',
+    operator: 'eq',
+    list: klasses,
+    idField: 'key',
+  },
 ];
 
 const StudentKlassesContainer = ({ entity, title }) => {
