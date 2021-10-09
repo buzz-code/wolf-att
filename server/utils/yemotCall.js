@@ -82,7 +82,7 @@ export class YemotCall extends CallBase {
         const message = isRetry ? this.texts.tryAgain : format(this.texts.welcomeAndTypeKlassId, teacher.name);
         await this.send(
             this.read({ type: 'text', text: message },
-                'klassId', 'tap', { max: 4, min: 1, block_asterisk: true })
+                'klassId', 'tap', { max: 9, min: 1, block_asterisk: true })
         );
         let klass = await queryHelper.getKlassByUserIdAndKlassId(this.user.id, this.params.klassId);
         if (klass) {
@@ -104,7 +104,7 @@ export class YemotCall extends CallBase {
         const message = isRetry ? this.texts.tryAgain : this.texts.typeLessonId;
         await this.send(
             this.read({ type: 'text', text: message },
-                'lessonId', 'tap', { max: 4, min: 1, block_asterisk: true })
+                'lessonId', 'tap', { max: 9, min: 1, block_asterisk: true })
         );
         let lesson = await queryHelper.getLessonByUserIdAndLessonId(this.user.id, this.params.lessonId);
         if (lesson) {
@@ -132,12 +132,12 @@ export class YemotCall extends CallBase {
             await this.send(
                 isFirstTime ? this.id_list_message({ type: 'text', text: this.texts.startStudentList }) : undefined,
                 this.read({ type: 'text', text: student.name + ': ' + this.texts.typeAbsences },
-                    'absCount', 'tap', { max: 2, min: 1, block_asterisk: true })
+                    'absCount', 'tap', { max: 9, min: 1, block_asterisk: true })
             );
             await this.send(
                 isFirstTime ? this.id_list_message({ type: 'text', text: this.texts.startStudentList }) : undefined,
                 this.read({ type: 'text', text: this.texts.typeApprovedAbsences },
-                    'approvedAbsCount', 'tap', { max: 2, min: 1, block_asterisk: true })
+                    'approvedAbsCount', 'tap', { max: 9, min: 1, block_asterisk: true })
             );
 
             isFirstTime = false;
