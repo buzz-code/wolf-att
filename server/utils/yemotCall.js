@@ -8,23 +8,23 @@ export class YemotCall extends CallBase {
         super(params, callId, user);
     }
 
-    texts = {
-        phoneIsNotRecognizedInTheSystem: 'מספר הטלפון אינו רשום במערכת',
-        welcomeAndTypeKlassId: 'שלום המורה {0} הגעת למוקד רישום הנוכחות, נא הקישי את קוד הכיתה',
-        confirmKlass: 'כיתה {0}, לאישור הקישי 1, לתיקון הקישי 2',
-        klassIdNotFound: 'קוד כיתה לא נמצא',
-        tryAgain: 'נסי שנית',
-        typeLessonId: 'נא הקישי את קוד השיעור',
-        confirmLesson: 'שיעור {0}, לאישור הקישי 1, לתיקון הקישי 2',
-        lessonIdNotFound: 'קוד שיעור לא נמצא',
-        startStudentList: 'כעת תושמע רשימת התלמידות',
-        typeAbsences: 'הקישי את מספר החיסורים לתלמידה',
-        typeApprovedAbsences: 'הקישי את מספר החיסורים המאושרים לתלמידה',
-        // prevStudent: 'מעבר לתלמידה הקודמת',
-        // forAttendanceTypeXPressY: 'ל{0} הקישי {1}, ',
-        dataWasNotSaved: 'ארעה שגיאה, נסי שוב במועד מאוחר יותר',
-        dataWasSavedSuccessfully: 'רישום הנוכחות הסתיים בהצלחה',
-    }
+    // texts = {
+    //     phoneIsNotRecognizedInTheSystem: 'מספר הטלפון אינו רשום במערכת',
+    //     welcomeAndTypeKlassId: 'שלום המורה {0} הגעת למוקד רישום הנוכחות, נא הקישי את קוד הכיתה',
+    //     confirmKlass: 'כיתה {0}, לאישור הקישי 1, לתיקון הקישי 2',
+    //     klassIdNotFound: 'קוד כיתה לא נמצא',
+    //     tryAgain: 'נסי שנית',
+    //     typeLessonId: 'נא הקישי את קוד השיעור',
+    //     confirmLesson: 'שיעור {0}, לאישור הקישי 1, לתיקון הקישי 2',
+    //     lessonIdNotFound: 'קוד שיעור לא נמצא',
+    //     startStudentList: 'כעת תושמע רשימת התלמידות',
+    //     typeAbsences: 'הקישי את מספר החיסורים לתלמידה',
+    //     typeApprovedAbsences: 'הקישי את מספר החיסורים המאושרים לתלמידה',
+    //     // prevStudent: 'מעבר לתלמידה הקודמת',
+    //     // forAttendanceTypeXPressY: 'ל{0} הקישי {1}, ',
+    //     dataWasNotSaved: 'ארעה שגיאה, נסי שוב במועד מאוחר יותר',
+    //     dataWasSavedSuccessfully: 'רישום הנוכחות הסתיים בהצלחה',
+    // }
 
     async start() {
         await this.getTexts();
