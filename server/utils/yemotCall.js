@@ -42,8 +42,8 @@ export class YemotCall extends CallBase {
             try {
                 const baseReport = {
                     user_id: this.user.id,
-                    teacher_id: teacher.id,
-                    lesson_id: lesson.id,
+                    teacher_id: teacher.tz,
+                    lesson_id: lesson.key,
                     report_date: new Date().toISOString().substr(0, 10),
                 };
                 for (const studentId in this.params.studentReports) {
