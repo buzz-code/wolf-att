@@ -123,7 +123,7 @@ export class YemotCall extends CallBase {
     }
 
     async getStudentReports(klass) {
-        const students = await queryHelper.getStudentsByUserIdAndKlassId(this.user.id, klass.id);
+        const students = await queryHelper.getStudentsByUserIdAndKlassId(this.user.id, klass.key);
 
         let isFirstTime = true;
         this.params.studentReports = {};
