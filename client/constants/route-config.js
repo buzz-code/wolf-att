@@ -25,6 +25,7 @@ import Lessons from '../containers/lessons/LessonsContainer';
 import Klasses from '../containers/klasses/KlassesContainer';
 import StudentKlasses from '../containers/student-klasses/StudentKlassesContainer';
 import Groups from '../containers/groups/GroupsContainer';
+import Texts from '../containers/texts/TextsContainer';
 import KlassTypes from '../containers/klass-types/KlassTypesContainer';
 import AttReports from '../containers/att-reports/AttReportsContainer';
 import StudentKlassesKlassType from '../containers/student-klasses-klass-type/StudentKlassesKlassTypeContainer';
@@ -83,6 +84,13 @@ export default [
     //   title: titles.GROUPS,
     //   props: { entity: entities.GROUPS, title: titles.GROUPS },
     // },
+    {
+      path: '/texts',
+      component: Texts,
+      icon: ChatIcon,
+      title: titles.TEXTS,
+      props: { entity: entities.TEXTS, title: titles.TEXTS },
+    },
     {
       path: '/klass-types',
       component: KlassTypes,

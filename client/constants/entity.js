@@ -5,6 +5,7 @@ export const LESSONS = 'lessons';
 export const KLASSS = 'klasses';
 export const STUDENT_KLASSES = 'student-klasses';
 export const GROUPS = 'groups';
+export const TEXTS = 'texts';
 export const KLASS_TYPES = 'klass-types';
 export const ATT_REPORTS = 'att-reports';
 export const STUDENT_KLASSES_KLASS_TYPE = 'student-klasses/report-by-klass-type';
