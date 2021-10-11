@@ -132,11 +132,11 @@ export class YemotCall extends CallBase {
             await this.send(
                 isFirstTime ? this.id_list_message({ type: 'text', text: this.texts.startStudentList }) : undefined,
                 this.read({ type: 'text', text: student.name + ': ' + this.texts.typeAbsences },
-                    'absCount', 'tap', { max: 9, min: 1, block_asterisk: true })
+                    'absCount', 'tap', { max: 1, min: 1, block_asterisk: true })
             );
             await this.send(
                 this.read({ type: 'text', text: this.texts.typeApprovedAbsences },
-                    'approvedAbsCount', 'tap', { max: 9, min: 1, block_asterisk: true })
+                    'approvedAbsCount', 'tap', { max: 1, min: 1, block_asterisk: true })
             );
 
             isFirstTime = false;
