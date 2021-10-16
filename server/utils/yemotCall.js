@@ -38,24 +38,16 @@ export class YemotCall extends CallBase {
             }
             const klass = await this.getKlass(teacher);
             const lesson = await this.getLesson();
+            this.params.baseReport = {
+                user_id: this.user.id,
+                teacher_id: teacher.tz,
+                lesson_id: lesson.key,
+                report_date: new Date().toISOString().substr(0, 10),
+            };
             await this.getStudentReports(klass);
             try {
-                const baseReport = {
-                    user_id: this.user.id,
-                    teacher_id: teacher.tz,
-                    lesson_id: lesson.key,
-                    report_date: new Date().toISOString().substr(0, 10),
-                };
-                for (const studentId in this.params.studentReports) {
-                    const attReport = {
-                        ...baseReport,
-                        student_tz: studentId,
-                        abs_count: this.params.studentReports[studentId].abs_count,
-                        approved_abs_count: this.params.studentReports[studentId].approved_abs_count,
-                        comments: '',
-                    };
-                    await new AttReport(attReport).save();
-                }
+                // for (const studentId in this.params.studentReports) {
+                // }
                 await this.send(
                     this.id_list_message({ type: 'text', text: this.texts.dataWasSavedSuccessfully }),
                     this.hangup()
@@ -140,10 +132,18 @@ export class YemotCall extends CallBase {
             );
 
             isFirstTime = false;
-            this.params.studentReports[student.tz] = {
+            // this.params.studentReports[student.tz] = {
+            //     abs_count: this.params.absCount,
+            //     approved_abs_count: this.params.approvedAbsCount,
+            // };
+
+            const attReport = {
+                ...this.params.baseReport,
+                student_tz: student.tz,
                 abs_count: this.params.absCount,
                 approved_abs_count: this.params.approvedAbsCount,
+                comments: '',
             };
-        }
+            await new AttReport(attReport).save();}
     }
 }
