@@ -152,6 +152,11 @@ export class YemotCall extends CallBase {
             //     approved_abs_count: this.params.approvedAbsCount,
             // };
 
+            const existing = existingReports.filter(item => item.student_tz == student.tz);
+            if (existing.length > 0) {
+                await new AttReport({ id: existing[0].id }).destroy();
+            }
+
             const attReport = {
                 ...this.params.baseReport,
                 student_tz: student.tz,
