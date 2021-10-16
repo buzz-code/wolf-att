@@ -157,6 +157,8 @@ export class YemotCall extends CallBase {
             return false;
         }
 
+        handleAsterisk = handleAsterisk.bind(this);
+
         while (index < students.length) {
             const student = students[index];
             await this.send(
