@@ -5,7 +5,7 @@ import Table from '../../../common-modules/client/components/table/Table';
 import * as crudAction from '../../../common-modules/client/actions/crudAction';
 import { getPropsForAutoComplete } from '../../../common-modules/client/utils/formUtil';
 
-const getColumns = ({ students, teachers, lessons }) => [
+const getColumns = ({ students, teachers, klasses, lessons }) => [
   {
     field: 'student_tz',
     title: 'תלמידה',
@@ -19,6 +19,12 @@ const getColumns = ({ students, teachers, lessons }) => [
     ...getPropsForAutoComplete('teacher_id', teachers, 'tz'),
   },
   {
+    field: 'klass_id',
+    title: 'כיתה',
+    columnOrder: 'klasses.name',
+    ...getPropsForAutoComplete('klass_id', klasses, 'key'),
+  },
+  {
     field: 'lesson_id',
     title: 'שיעור',
     columnOrder: 'lessons.name',
@@ -29,7 +35,7 @@ const getColumns = ({ students, teachers, lessons }) => [
   { field: 'approved_abs_count', title: 'חיסורים מאושרים', type: 'numeric' },
   { field: 'comments', title: 'הערות' },
 ];
-const getFilters = ({ students, teachers, lessons }) => [
+const getFilters = ({ students, teachers, klasses, lessons }) => [
   {
     field: 'students.name',
     label: 'תלמידה',
@@ -45,6 +51,14 @@ const getFilters = ({ students, teachers, lessons }) => [
     operator: 'eq',
     list: teachers,
     idField: 'tz',
+  },
+  {
+    field: 'klasses.name',
+    label: 'כיתה',
+    type: 'list',
+    operator: 'eq',
+    list: klasses,
+    idField: 'key',
   },
   {
     field: 'lessons.name',

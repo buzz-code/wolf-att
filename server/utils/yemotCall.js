@@ -41,6 +41,7 @@ export class YemotCall extends CallBase {
             this.params.baseReport = {
                 user_id: this.user.id,
                 teacher_id: teacher.tz,
+                klass_id: klass.key,
                 lesson_id: lesson.key,
                 report_date: new Date().toISOString().substr(0, 10),
             };
@@ -115,7 +116,7 @@ export class YemotCall extends CallBase {
     }
 
     async getStudentReports(klass) {
-        const existingReports = await queryHelper.getExistingReport(this.user.id, this.params.baseReport.teacher_id, this.params.baseReport.lesson_id);
+        const existingReports = await queryHelper.getExistingReport(this.user.id, klass.key, this.params.baseReport.lesson_id);
         let idsToSkip = new Set();
         if (existingReports.length > 0) {
             await this.send(
