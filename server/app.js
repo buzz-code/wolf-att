@@ -14,9 +14,9 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../common-modules/webpack/webpack.config.dev';
 
 if (process.env.NODE_ENV === 'development') {
-  // const compiler = webpack(webpackConfig);
-  // app.use(webpackDevMiddleware(compiler, { noInfo: false, publicPath: webpackConfig.output.publicPath }));
-  // app.use(webpackHotMiddleware(compiler));
+  const compiler = webpack(webpackConfig);
+  app.use(webpackDevMiddleware(compiler, { noInfo: false, publicPath: webpackConfig.output.publicPath }));
+  app.use(webpackHotMiddleware(compiler));
 }
 
 // Swagger API documentation
