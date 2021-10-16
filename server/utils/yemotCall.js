@@ -115,7 +115,21 @@ export class YemotCall extends CallBase {
     }
 
     async getStudentReports(klass) {
-        const students = await queryHelper.getStudentsByUserIdAndKlassId(this.user.id, klass.key);
+        const existingReports = await queryHelper.getExistingReport(this.user.id, this.params.baseReport.teacher_id, this.params.baseReport.lesson_id);
+        let idsToSkip = new Set();
+        if (existingReports.length > 0) {
+            await this.send(
+                this.read({ type: 'text', text: this.texts.askIfSkipExistingReports },
+                    'isSkipExistingReports', 'tap', { max: 1, min: 1, block_asterisk: true })
+            );
+
+            if (this.params.isSkipExistingReports == '1') {
+                idsToSkip = new Set(existingReports.map(item => item.student_tz));
+            }
+        }
+
+        const studentList = await queryHelper.getStudentsByUserIdAndKlassId(this.user.id, klass.key);
+        const students = studentList.filter(item => !idsToSkip.has(item.tz));
 
         let isFirstTime = true;
         this.params.studentReports = {};
@@ -144,6 +158,7 @@ export class YemotCall extends CallBase {
                 approved_abs_count: this.params.approvedAbsCount,
                 comments: '',
             };
-            await new AttReport(attReport).save();}
+            await new AttReport(attReport).save();
+        }
     }
 }

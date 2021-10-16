@@ -1,9 +1,11 @@
+import moment from "moment";
 import Klass from "../models/klass.model";
 import Teacher from "../models/teacher.model";
 import User from "../models/user.model";
 import StudentKlass from "../models/student-klass.model";
 import Lesson from "../models/lesson.model";
 import Group from "../models/group.model";
+import AttReport from "../models/att-report.model";
 
 export function getUserByPhone(phone_number) {
     return new User().where({ phone_number })
@@ -26,6 +28,13 @@ export function getKlassByUserIdAndKlassId(user_id, key) {
 export function getLessonByUserIdAndLessonId(user_id, key) {
     return new Lesson().where({ user_id, key })
         .fetch({ require: false })
+        .then(res => res ? res.toJSON() : null);
+}
+
+export function getExistingReport(user_id, teacher_id, lesson_id) {
+    return new AttReport().where({ user_id, teacher_id, lesson_id })
+        .where('report_date', '>=', moment().add(-7, 'days').toISOString().substr(0, 10))
+        .fetchAll()
         .then(res => res ? res.toJSON() : null);
 }
 
