@@ -134,17 +134,44 @@ export class YemotCall extends CallBase {
 
         let isFirstTime = true;
         this.params.studentReports = {};
-        for (let index = 0; index < students.length; index++) {
+        let index = 0;
+
+        async function handleAsterisk(field) {
+            if (this.params[field] == '*') {
+                await this.send(
+                    this.read({ type: 'text', text: this.texts.sideMenu },
+                        'sideMenu', 'tap', { max: 1, min: 1, block_asterisk: true })
+                );
+                if (this.params.sideMenu == '4' && index > 0) {
+                    index--;
+                    return true;
+                } else if (this.params.sideMenu == '6') {
+                    index++;
+                    return true;
+                } else {
+                    this.params[field] = '0';
+                }
+            }
+            return false;
+        }
+
+        while (index < students.length) {
             const student = students[index];
             await this.send(
                 isFirstTime ? this.id_list_message({ type: 'text', text: this.texts.startStudentList }) : undefined,
                 this.read({ type: 'text', text: student.name + ': ' + this.texts.typeAbsences },
-                    'absCount', 'tap', { max: 1, min: 1, block_asterisk: true })
+                    'absCount', 'tap', { max: 1, min: 1, block_asterisk: false })
             );
+            if (await handleAsterisk('absCount')) {
+                continue;
+            }
             await this.send(
                 this.read({ type: 'text', text: this.texts.typeApprovedAbsences },
-                    'approvedAbsCount', 'tap', { max: 1, min: 1, block_asterisk: true })
+                    'approvedAbsCount', 'tap', { max: 1, min: 1, block_asterisk: false })
             );
+            if (await handleAsterisk('approvedAbsCount')) {
+                continue;
+            }
 
             isFirstTime = false;
             // this.params.studentReports[student.tz] = {
@@ -165,6 +192,8 @@ export class YemotCall extends CallBase {
                 comments: '',
             };
             await new AttReport(attReport).save();
+
+            index++;
         }
     }
 }
