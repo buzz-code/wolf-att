@@ -142,8 +142,10 @@ export class YemotCall extends CallBase {
                     this.read({ type: 'text', text: this.texts.sideMenu },
                         'sideMenu', 'tap', { max: 1, min: 1, block_asterisk: true })
                 );
-                if (this.params.sideMenu == '4' && index > 0) {
-                    index--;
+                if (this.params.sideMenu == '4') {
+                    if (index > 0) {
+                        index--;
+                    }
                     return true;
                 } else if (this.params.sideMenu == '6') {
                     index++;
