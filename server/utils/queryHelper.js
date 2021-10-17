@@ -1,4 +1,5 @@
 import moment from "moment";
+import bookshelf from '../../common-modules/server/config/bookshelf';
 import Klass from "../models/klass.model";
 import Teacher from "../models/teacher.model";
 import User from "../models/user.model";
@@ -14,7 +15,8 @@ export function getUserByPhone(phone_number) {
 }
 
 export function getTeacherByUserIdAndPhone(user_id, phone) {
-    return new Teacher().where({ user_id, phone })
+    return new Teacher().where({ user_id })
+        .where(bookshelf.knex.raw('(phone = ? or phone2 = ?)', [phone, phone]))
         .fetch({ require: false })
         .then(res => res ? res.toJSON() : null);
 }

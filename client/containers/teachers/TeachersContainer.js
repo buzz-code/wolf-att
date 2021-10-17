@@ -6,11 +6,13 @@ const getColumns = () => [
   { field: 'tz', title: 'תעודת זהות' },
   { field: 'name', title: 'שם' },
   { field: 'phone', title: 'מספר טלפון' },
+  { field: 'phone2', title: '2 מספר טלפון' },
 ];
 const getFilters = () => [
   { field: 'tz', label: 'תעודת זהות', type: 'text', operator: 'like' },
   { field: 'name', label: 'שם', type: 'text', operator: 'like' },
   { field: 'phone', label: 'מספר טלפון', type: 'text', operator: 'like' },
+  { field: 'phone2', label: '2 מספר טלפון', type: 'text', operator: 'like' },
 ];
 
 const TeachersContainer = ({ entity, title }) => {
