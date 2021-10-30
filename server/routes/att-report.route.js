@@ -9,7 +9,7 @@ const router = genericRoute(attReportCtrl, router => {
         });
 
     router.route('/handle-email')
-        .get(async (req, res) => {
+        .post(async (req, res) => {
             const data = await getAndParseExcelEmail(req, res);
             // attReportCtrl.handleEmail(data);
         });
