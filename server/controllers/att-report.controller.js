@@ -63,7 +63,7 @@ export async function handleEmail(req, res) {
         const currentUser = await User.query({
             where: { id: req.query.userId },
             select: ['email', 'id']
-        });
+        }).fetch();
         await uploadMultiple({ body, currentUser });
         console.log(body.length + ' records were saved successfully');
     } catch (e) {
