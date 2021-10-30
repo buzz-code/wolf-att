@@ -20,6 +20,20 @@ const supportedEntities = [
     title: titles.GROUPS,
     columns: ['klass_id', 'teacher_id', 'lesson_id'],
   },
+  {
+    value: entities.ATT_REPORTS,
+    title: titles.ATT_REPORTS,
+    columns: [
+      'student_tz',
+      'teacher_id',
+      'klass_id',
+      'lesson_id',
+      'report_date',
+      'abs_count',
+      'approved_abs_count',
+      'comments',
+    ],
+  },
 ];
 
 const ExcelImportContainer = () => {
