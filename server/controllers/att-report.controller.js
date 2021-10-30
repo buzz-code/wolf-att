@@ -3,8 +3,10 @@ import Lesson from '../models/lesson.model';
 import Student from '../models/student.model';
 import Teacher from '../models/teacher.model';
 import Klass from '../models/klass.model';
-import { getListFromTable } from '../../common-modules/server/utils/common';
+import User from '../models/user.model';
+import { getDataToSave, getListFromTable } from '../../common-modules/server/utils/common';
 import genericController, { applyFilters, fetchPage } from '../../common-modules/server/controllers/generic.controller';
+import { getAndParseExcelEmail } from '../../common-modules/server/utils/email';
 
 export const { findById, store, update, destroy, uploadMultiple } = genericController(AttReport);
 
@@ -47,4 +49,23 @@ export async function getEditData(req, res) {
         error: null,
         data: { students, teachers, klasses, lessons }
     });
+}
+
+export async function handleEmail(req, res) {
+    try {
+        const data = await getAndParseExcelEmail(req, res);
+        const columns = ['klass_id', 'student_tz', '', 'teacher_id', 'lesson_id', 'abs_count', 'approved_abs_count'];
+        const body = getDataToSave(data, columns);
+        const report_date = new Date().toISOString().substr(0, 10);
+        body.forEach(item => {
+            item.report_date = report_date;
+        });
+        const currentUser = await User.query({
+            where: { id: req.query.userId },
+            select: ['email', 'id']
+        });
+        await uploadMultiple({ body, currentUser }, {});
+    } catch (e) {
+        console.log(e);
+    }
 }
