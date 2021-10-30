@@ -13,6 +13,6 @@ const router = genericRoute(attReportCtrl, router => {
             const data = await getAndParseExcelEmail(req, res);
             // attReportCtrl.handleEmail(data);
         });
-});
+}, req => req.path.match('handle-email'));
 
 export default router;
