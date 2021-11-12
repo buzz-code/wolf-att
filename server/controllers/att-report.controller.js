@@ -5,7 +5,7 @@ import Teacher from '../models/teacher.model';
 import Klass from '../models/klass.model';
 import User from '../models/user.model';
 import { getDataToSave, getListFromTable } from '../../common-modules/server/utils/common';
-import genericController, { applyFilters, fetchPage } from '../../common-modules/server/controllers/generic.controller';
+import genericController, { applyFilters, fetchPage, fetchPagePromise } from '../../common-modules/server/controllers/generic.controller';
 import { getAndParseExcelEmail } from '../../common-modules/server/utils/email';
 
 export const { findById, store, update, destroy, uploadMultiple } = genericController(AttReport);
@@ -69,4 +69,45 @@ export async function handleEmail(req, res) {
     } catch (e) {
         console.log(e);
     }
+}
+
+export async function getPivotData(req, res) {
+    const dbQuery = new Student()
+        .where({ 'students.user_id': req.currentUser.id });
+
+    applyFilters(dbQuery, req.query.filters);
+    const studentsRes = await fetchPagePromise({ dbQuery }, req.query);
+
+    const pivotQuery = new AttReport()
+        .where('att_reports.student_tz', 'in', studentsRes.data.map(item => item.tz))
+        .query(qb => {
+            qb.leftJoin('teachers', 'teachers.tz', 'att_reports.teacher_id')
+            qb.leftJoin('lessons', 'lessons.key', 'att_reports.lesson_id')
+            qb.select('att_reports.*')
+            qb.select({
+                teacher_name: 'teachers.name',
+                lesson_name: 'lessons.name',
+            })
+        });
+    applyFilters(pivotQuery, req.query.filters);
+    const pivotRes = await fetchPagePromise({ dbQuery: pivotQuery }, { page: 0, pageSize: 1000 * req.query.pageSize, /* todo:orderBy */ });
+
+    const pivotData = studentsRes.data;
+    const pivotDict = pivotData.reduce((prev, curr) => ({ ...prev, [curr.tz]: curr }), {});
+    pivotRes.data.forEach(item => {
+        const key = item.lesson_id + '_' + item.teacher_id;
+        if (pivotDict[item.student_tz][key] === undefined) {
+            pivotDict[item.student_tz][key] = 0;
+            pivotDict[item.student_tz][key + '_title'] = item.lesson_name + ' ' + item.teacher_name;
+        }
+        pivotDict[item.student_tz][key] += item.abs_count;
+        pivotDict[item.student_tz].total = (pivotDict[item.student_tz].total || 0) + item.abs_count;
+    })
+
+    res.send({
+        error: null,
+        data: pivotData,
+        page: studentsRes.page,
+        total: studentsRes.total,
+    })
 }

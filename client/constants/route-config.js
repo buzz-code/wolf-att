@@ -28,6 +28,7 @@ import Groups from '../containers/groups/GroupsContainer';
 import Texts from '../containers/texts/TextsContainer';
 import KlassTypes from '../containers/klass-types/KlassTypesContainer';
 import AttReports from '../containers/att-reports/AttReportsContainer';
+import PivotReports from '../containers/pivot-reports/PivotReportsContainer';
 import StudentKlassesKlassType from '../containers/student-klasses-klass-type/StudentKlassesKlassTypeContainer';
 import ReportEdit from '../containers/report-edit/ReportEditContainer';
 import GroupsPrint from '../containers/groups-print/GroupsPrintContainer';
@@ -104,6 +105,13 @@ export default [
       icon: AssignmentTurnedInIcon,
       title: titles.ATT_REPORTS,
       props: { entity: entities.ATT_REPORTS, title: titles.ATT_REPORTS },
+    },
+    {
+      path: '/pivot-reports',
+      component: PivotReports,
+      icon: AssignmentTurnedInIcon,
+      title: titles.PIVOT_REPORTS,
+      props: { entity: entities.PIVOT_REPORTS, title: titles.PIVOT_REPORTS },
     },
   ],
   [

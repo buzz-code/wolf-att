@@ -8,6 +8,7 @@ export const GROUPS = 'קבוצות';
 export const TEXTS = 'הודעות';
 export const KLASS_TYPES = 'סוגי כיתות';
 export const ATT_REPORTS = 'דיווחים';
+export const PIVOT_REPORTS = 'דוח PIVOT';
 export const STUDENT_KLASSES_KLASS_TYPE = 'דוח שיוך תלמידה';
 export const REPORT_EDIT = 'עריכת דיווחים';
 export const STUDENT_REPORTS = 'דו"ח לתלמידה';
