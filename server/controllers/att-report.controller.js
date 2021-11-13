@@ -95,6 +95,7 @@ export async function getPivotData(req, res) {
         .where('att_reports.student_tz', 'in', studentsRes.data.map(item => item.tz))
         .query(qb => {
             qb.leftJoin('teachers', 'teachers.tz', 'att_reports.teacher_id')
+            qb.leftJoin('klasses', 'klasses.key', 'att_reports.klass_id')
             qb.leftJoin('lessons', 'lessons.key', 'att_reports.lesson_id')
             qb.select('att_reports.*')
             qb.select({
