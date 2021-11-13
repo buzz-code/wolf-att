@@ -72,10 +72,23 @@ export async function handleEmail(req, res) {
 }
 
 export async function getPivotData(req, res) {
+    const studentFilters = [];
+    const reportFilters = [];
+    if (req.query.filters) {
+        const filtersObj = JSON.parse(req.query.filters);
+        for (const filter of Object.values(filtersObj)) {
+            if (filter.field.startsWith('students')) {
+                studentFilters.push(filter);
+            } else {
+                reportFilters.push(filter);
+            }
+        }
+    }
+
     const dbQuery = new Student()
         .where({ 'students.user_id': req.currentUser.id });
 
-    applyFilters(dbQuery, req.query.filters);
+    applyFilters(dbQuery, JSON.stringify(studentFilters));
     const studentsRes = await fetchPagePromise({ dbQuery }, req.query);
 
     const pivotQuery = new AttReport()
@@ -89,7 +102,7 @@ export async function getPivotData(req, res) {
                 lesson_name: 'lessons.name',
             })
         });
-    applyFilters(pivotQuery, req.query.filters);
+    applyFilters(pivotQuery, JSON.stringify(reportFilters));
     const pivotRes = await fetchPagePromise({ dbQuery: pivotQuery }, { page: 0, pageSize: 1000 * req.query.pageSize, /* todo:orderBy */ });
 
     const pivotData = studentsRes.data;

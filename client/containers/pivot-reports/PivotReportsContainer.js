@@ -18,7 +18,43 @@ const getColumns = ({ students }, data) => [
   ...getColumnsForPivot(data),
   { field: 'total', title: 'סה"כ', sorting: false },
 ];
-const getFilters = ({ students, teachers, klasses, lessons }) => [];
+const getFilters = ({ students, teachers, klasses, lessons }) => [
+  { field: 'students.tz', label: 'תז תלמידה', type: 'text', operator: 'like' },
+  {
+    field: 'students.name',
+    label: 'תלמידה',
+    type: 'list',
+    operator: 'eq',
+    list: students,
+    idField: 'tz',
+  },
+  {
+    field: 'teachers.name',
+    label: 'מורה',
+    type: 'list',
+    operator: 'eq',
+    list: teachers,
+    idField: 'tz',
+  },
+  {
+    field: 'klasses.name',
+    label: 'כיתה',
+    type: 'list',
+    operator: 'eq',
+    list: klasses,
+    idField: 'key',
+  },
+  {
+    field: 'lessons.name',
+    label: 'שיעור',
+    type: 'list',
+    operator: 'eq',
+    list: lessons,
+    idField: 'key',
+  },
+  { field: 'report_date', label: 'מתאריך', type: 'date', operator: 'date-before' },
+  { field: 'report_date', label: 'עד תאריך', type: 'date', operator: 'date-after' },
+];
 
 const PivotReportsContainer = ({ entity, title }) => {
   const dispatch = useDispatch();
