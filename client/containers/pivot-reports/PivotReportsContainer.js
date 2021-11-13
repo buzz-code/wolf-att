@@ -29,20 +29,20 @@ const getFilters = ({ students, teachers, klasses, lessons }) => [
     idField: 'tz',
   },
   {
-    field: 'teachers.name',
-    label: 'מורה',
-    type: 'list',
-    operator: 'eq',
-    list: teachers,
-    idField: 'tz',
-  },
-  {
     field: 'klasses.name',
     label: 'כיתה',
     type: 'list',
     operator: 'eq',
     list: klasses,
     idField: 'key',
+  },
+  {
+    field: 'teachers.name',
+    label: 'מורה',
+    type: 'list',
+    operator: 'eq',
+    list: teachers,
+    idField: 'tz',
   },
   {
     field: 'lessons.name',

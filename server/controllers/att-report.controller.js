@@ -77,7 +77,7 @@ export async function getPivotData(req, res) {
     if (req.query.filters) {
         const filtersObj = JSON.parse(req.query.filters);
         for (const filter of Object.values(filtersObj)) {
-            if (filter.field.startsWith('students')) {
+            if (filter.field.startsWith('students') || filter.field.startsWith('klasses')) {
                 studentFilters.push(filter);
             } else {
                 reportFilters.push(filter);
@@ -86,16 +86,24 @@ export async function getPivotData(req, res) {
     }
 
     const dbQuery = new Student()
-        .where({ 'students.user_id': req.currentUser.id });
+        .where({ 'students.user_id': req.currentUser.id })
+        .query(qb => {
+            qb.leftJoin('student_klasses', 'student_klasses.student_tz', 'students.tz')
+            qb.leftJoin('klasses', 'klasses.key', 'student_klasses.klass_id')
+            qb.distinct('students.tz')
+        });
 
     applyFilters(dbQuery, JSON.stringify(studentFilters));
-    const studentsRes = await fetchPagePromise({ dbQuery }, req.query);
+    const countQuery = dbQuery.clone().query()
+        .clearSelect()
+        .countDistinct({ count: ['students.id'] })
+        .then(res => res[0].count);
+    const studentsRes = await fetchPagePromise({ dbQuery, countQuery }, req.query);
 
     const pivotQuery = new AttReport()
         .where('att_reports.student_tz', 'in', studentsRes.data.map(item => item.tz))
         .query(qb => {
             qb.leftJoin('teachers', 'teachers.tz', 'att_reports.teacher_id')
-            qb.leftJoin('klasses', 'klasses.key', 'att_reports.klass_id')
             qb.leftJoin('lessons', 'lessons.key', 'att_reports.lesson_id')
             qb.select('att_reports.*')
             qb.select({
