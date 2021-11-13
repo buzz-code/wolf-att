@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Table from '../../../common-modules/client/components/table/Table';
@@ -34,6 +34,10 @@ const PivotReportsContainer = ({ entity, title }) => {
     dispatch(crudAction.customHttpRequest(entity, 'GET', '../get-edit-data'));
   }, []);
 
+  const getExportColumns = useCallback((data) => getColumns(editData || {}, data || []), [
+    editData,
+  ]);
+
   return (
     <Table
       entity={entity}
@@ -43,6 +47,7 @@ const PivotReportsContainer = ({ entity, title }) => {
       disableAdd={true}
       disableUpdate={true}
       disableDelete={true}
+      getExportColumns={getExportColumns}
     />
   );
 };
