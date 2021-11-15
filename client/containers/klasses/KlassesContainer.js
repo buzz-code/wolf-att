@@ -19,7 +19,7 @@ const getFilters = ({ klassTypes }) => [
   { field: 'key', label: 'מזהה', type: 'text', operator: 'like' },
   { field: 'name', label: 'שם', type: 'text', operator: 'like' },
   {
-    field: 'klass_types.name',
+    field: 'klass_types.id',
     label: 'סוג כיתה',
     type: 'list',
     operator: 'eq',

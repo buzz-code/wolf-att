@@ -29,7 +29,7 @@ const getColumns = ({ klasses, teachers, lessons }) => [
 ];
 const getFilters = ({ klasses, teachers, lessons }) => [
   {
-    field: 'klasses.name',
+    field: 'klasses.key',
     label: 'כיתה',
     type: 'list',
     operator: 'eq',
@@ -37,7 +37,7 @@ const getFilters = ({ klasses, teachers, lessons }) => [
     idField: 'key',
   },
   {
-    field: 'teachers.name',
+    field: 'teachers.tz',
     label: 'מורה',
     type: 'list',
     operator: 'eq',
@@ -45,7 +45,7 @@ const getFilters = ({ klasses, teachers, lessons }) => [
     idField: 'tz',
   },
   {
-    field: 'lessons.name',
+    field: 'lessons.key',
     label: 'שיעור',
     type: 'list',
     operator: 'eq',

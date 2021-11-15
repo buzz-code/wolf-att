@@ -21,7 +21,7 @@ const getColumns = ({ students, klasses }) => [
 ];
 const getFilters = ({ students, klasses }) => [
   {
-    field: 'students.name',
+    field: 'students.tz',
     label: 'תלמידה',
     type: 'list',
     operator: 'eq',
@@ -29,7 +29,7 @@ const getFilters = ({ students, klasses }) => [
     idField: 'tz',
   },
   {
-    field: 'klasses.name',
+    field: 'klasses.key',
     label: 'כיתה',
     type: 'list',
     operator: 'eq',
