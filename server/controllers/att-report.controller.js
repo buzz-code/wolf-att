@@ -120,7 +120,7 @@ export async function getPivotData(req, res) {
         const key = item.lesson_id + '_' + item.teacher_id;
         if (pivotDict[item.student_tz][key] === undefined) {
             pivotDict[item.student_tz][key] = 0;
-            pivotDict[item.student_tz][key + '_title'] = item.lesson_name + ' ' + item.teacher_name;
+            pivotDict[item.student_tz][key + '_title'] = item.lesson_name + ' המו\' ' + item.teacher_name;
         }
         pivotDict[item.student_tz][key] += item.abs_count;
         pivotDict[item.student_tz].total = (pivotDict[item.student_tz].total || 0) + item.abs_count;
