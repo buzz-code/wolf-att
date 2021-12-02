@@ -7,6 +7,7 @@ import StudentKlass from "../models/student-klass.model";
 import Lesson from "../models/lesson.model";
 import Group from "../models/group.model";
 import AttReport from "../models/att-report.model";
+import Grade from "../models/grade.model";
 
 export function getUserByPhone(phone_number) {
     return new User().where({ phone_number })
@@ -35,6 +36,13 @@ export function getLessonByUserIdAndLessonId(user_id, key) {
 
 export function getExistingReport(user_id, klass_id, lesson_id) {
     return new AttReport().where({ user_id, klass_id, lesson_id })
+        .where('report_date', '>=', moment().add(-7, 'days').toISOString().substr(0, 10))
+        .fetchAll()
+        .then(res => res ? res.toJSON() : null);
+}
+
+export function getExistingGrades(user_id, klass_id, lesson_id) {
+    return new Grade().where({ user_id, klass_id, lesson_id })
         .where('report_date', '>=', moment().add(-7, 'days').toISOString().substr(0, 10))
         .fetchAll()
         .then(res => res ? res.toJSON() : null);

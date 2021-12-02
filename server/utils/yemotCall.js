@@ -2,6 +2,7 @@ import { CallBase } from "../../common-modules/server/utils/callBase";
 import format from 'string-format';
 import * as queryHelper from './queryHelper';
 import AttReport from "../models/att-report.model";
+import Grade from "../models/grade.model";
 
 export class YemotCall extends CallBase {
     constructor(params, callId, user) {
@@ -27,7 +28,17 @@ export class YemotCall extends CallBase {
                 lesson_id: lesson.key,
                 report_date: new Date().toISOString().substr(0, 10),
             };
-            await this.getStudentReports(klass);
+
+            await this.send(
+                this.read({ type: 'text', text: this.texts.getReportType },
+                    'reportType', 'tap', { max: 1, min: 1, block_asterisk: true })
+            );
+            if (this.params.reportType === '1') {
+                await this.getStudentReports(klass);
+            }
+            else if (this.params.reportType === '2') {
+                await this.getStudentGrades(klass);
+            }
             try {
                 // for (const studentId in this.params.studentReports) {
                 // }
@@ -178,6 +189,83 @@ export class YemotCall extends CallBase {
                 comments: '',
             };
             await new AttReport(attReport).save();
+
+            index++;
+        }
+    }
+
+    async getStudentGrades(klass) {
+        const existingReports = await queryHelper.getExistingGrades(this.user.id, klass.key, this.params.baseReport.lesson_id);
+        let idsToSkip = new Set();
+        if (existingReports.length > 0) {
+            await this.send(
+                this.read({ type: 'text', text: this.texts.askIfSkipExistingReports },
+                    'isSkipExistingReports', 'tap', { max: 1, min: 1, block_asterisk: true })
+            );
+
+            if (this.params.isSkipExistingReports == '1') {
+                idsToSkip = new Set(existingReports.map(item => item.student_tz));
+            }
+        }
+
+        const studentList = await queryHelper.getStudentsByUserIdAndKlassId(this.user.id, klass.key);
+        const students = studentList.filter(item => !idsToSkip.has(item.tz));
+
+        let isFirstTime = true;
+        this.params.studentReports = {};
+        let index = 0;
+
+        async function handleAsterisk(field) {
+            if (this.params[field] == '*') {
+                await this.send(
+                    this.read({ type: 'text', text: this.texts.sideMenu },
+                        'sideMenu', 'tap', { max: 1, min: 1, block_asterisk: true })
+                );
+                if (this.params.sideMenu == '4') {
+                    if (index > 0) {
+                        index--;
+                    }
+                    return true;
+                } else if (this.params.sideMenu == '6') {
+                    index++;
+                    return true;
+                } else {
+                    this.params[field] = '0';
+                }
+            }
+            return false;
+        }
+
+        handleAsterisk = handleAsterisk.bind(this);
+
+        while (index < students.length) {
+            const student = students[index];
+            await this.send(
+                isFirstTime ? this.id_list_message({ type: 'text', text: this.texts.startStudentList }) : undefined,
+                this.read({ type: 'text', text: student.name + ': ' + this.texts.typeGrade },
+                    'grade', 'tap', { max: 3, min: 1, block_asterisk: false, sec_wait: 3 })
+            );
+            if (await handleAsterisk('grade')) {
+                continue;
+            }
+
+            isFirstTime = false;
+            // this.params.studentReports[student.tz] = {
+            //     grade: this.params.grade,
+            // };
+
+            const existing = existingReports.filter(item => item.student_tz == student.tz);
+            if (existing.length > 0) {
+                await new Grade({ id: existing[0].id }).destroy();
+            }
+
+            const dataToSave = {
+                ...this.params.baseReport,
+                student_tz: student.tz,
+                grade: this.params.grade,
+                comments: '',
+            };
+            await new Grade(dataToSave).save();
 
             index++;
         }
