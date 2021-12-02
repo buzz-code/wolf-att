@@ -29,6 +29,8 @@ import Texts from '../containers/texts/TextsContainer';
 import KlassTypes from '../containers/klass-types/KlassTypesContainer';
 import AttReports from '../containers/att-reports/AttReportsContainer';
 import PivotReports from '../containers/pivot-reports/PivotReportsContainer';
+import Grades from '../containers/grades/GradesContainer';
+import PivotGrades from '../containers/pivot-grades/PivotGradesContainer';
 import StudentKlassesKlassType from '../containers/student-klasses-klass-type/StudentKlassesKlassTypeContainer';
 import ReportEdit from '../containers/report-edit/ReportEditContainer';
 import GroupsPrint from '../containers/groups-print/GroupsPrintContainer';
@@ -112,6 +114,20 @@ export default [
       icon: AssignmentTurnedInIcon,
       title: titles.PIVOT_REPORTS,
       props: { entity: entities.PIVOT_REPORTS, title: titles.PIVOT_REPORTS },
+    },
+    {
+      path: '/grades',
+      component: Grades,
+      icon: AssignmentTurnedInIcon,
+      title: titles.GRADES,
+      props: { entity: entities.GRADES, title: titles.GRADES },
+    },
+    {
+      path: '/pivot-grades',
+      component: PivotGrades,
+      icon: AssignmentTurnedInIcon,
+      title: titles.PIVOT_GRADES,
+      props: { entity: entities.PIVOT_GRADES, title: titles.PIVOT_GRADES },
     },
   ],
   [
