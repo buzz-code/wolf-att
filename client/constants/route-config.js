@@ -109,25 +109,11 @@ export default [
       props: { entity: entities.ATT_REPORTS, title: titles.ATT_REPORTS },
     },
     {
-      path: '/pivot-reports',
-      component: PivotReports,
-      icon: AssignmentTurnedInIcon,
-      title: titles.PIVOT_REPORTS,
-      props: { entity: entities.PIVOT_REPORTS, title: titles.PIVOT_REPORTS },
-    },
-    {
       path: '/grades',
       component: Grades,
       icon: AssignmentTurnedInIcon,
       title: titles.GRADES,
       props: { entity: entities.GRADES, title: titles.GRADES },
-    },
-    {
-      path: '/pivot-grades',
-      component: PivotGrades,
-      icon: AssignmentTurnedInIcon,
-      title: titles.PIVOT_GRADES,
-      props: { entity: entities.PIVOT_GRADES, title: titles.PIVOT_GRADES },
     },
   ],
   [
@@ -150,12 +136,26 @@ export default [
       },
     },
     {
-      path: '/report-edit',
-      component: ReportEdit,
-      icon: AssignmentIcon,
-      title: titles.REPORT_EDIT,
-      props: { entity: entities.REPORT_EDIT, title: titles.REPORT_EDIT },
+      path: '/pivot-reports',
+      component: PivotReports,
+      icon: AssignmentTurnedInIcon,
+      title: titles.PIVOT_REPORTS,
+      props: { entity: entities.PIVOT_REPORTS, title: titles.PIVOT_REPORTS },
     },
+    {
+      path: '/pivot-grades',
+      component: PivotGrades,
+      icon: AssignmentTurnedInIcon,
+      title: titles.PIVOT_GRADES,
+      props: { entity: entities.PIVOT_GRADES, title: titles.PIVOT_GRADES },
+    },
+    // {
+    //   path: '/report-edit',
+    //   component: ReportEdit,
+    //   icon: AssignmentIcon,
+    //   title: titles.REPORT_EDIT,
+    //   props: { entity: entities.REPORT_EDIT, title: titles.REPORT_EDIT },
+    // },
   ],
   // [
   //   {
