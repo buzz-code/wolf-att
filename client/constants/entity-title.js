@@ -10,6 +10,7 @@ export const KLASS_TYPES = 'סוגי כיתות';
 export const ATT_REPORTS = 'נוכחות';
 export const PIVOT_REPORTS = 'PIVOT נוכחות';
 export const GRADES = 'ציונים';
+export const ATT_REPORTS_AND_GRADES = 'נוכחות + ציונים';
 export const PIVOT_GRADES = 'PIVOT ציונים';
 export const STUDENT_KLASSES_KLASS_TYPE = 'דוח שיוך תלמידה';
 export const REPORT_EDIT = 'עריכת דיווחים';

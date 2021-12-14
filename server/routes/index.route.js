@@ -12,6 +12,7 @@ import textRoutes from './text.route';
 import klassTypeRoutes from './klass-type.route';
 import attReportRoutes from './att-report.route';
 import gradeRoutes from './grade.route';
+import AttReportAndGradeRoutes from './att-report-and-grade.route';
 import reportEditRoutes from './report-edit.route';
 import dashboardRoutes from './dashboard.route';
 
@@ -30,6 +31,7 @@ router.use('/texts', textRoutes);
 router.use('/klass-types', klassTypeRoutes);
 router.use('/att-reports', attReportRoutes);
 router.use('/grades', gradeRoutes);
+router.use('/att-reports-and-grades', AttReportAndGradeRoutes);
 router.use('/report-edit', reportEditRoutes);
 router.use('/dashboard', dashboardRoutes);
 

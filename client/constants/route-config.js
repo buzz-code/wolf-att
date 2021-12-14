@@ -31,6 +31,7 @@ import AttReports from '../containers/att-reports/AttReportsContainer';
 import PivotReports from '../containers/pivot-reports/PivotReportsContainer';
 import Grades from '../containers/grades/GradesContainer';
 import PivotGrades from '../containers/pivot-grades/PivotGradesContainer';
+import AttReportsAndGrades from '../containers/att-reports-and-grades/AttReportsAndGradesContainer';
 import StudentKlassesKlassType from '../containers/student-klasses-klass-type/StudentKlassesKlassTypeContainer';
 import ReportEdit from '../containers/report-edit/ReportEditContainer';
 import GroupsPrint from '../containers/groups-print/GroupsPrintContainer';
@@ -114,6 +115,13 @@ export default [
       icon: AssignmentTurnedInIcon,
       title: titles.GRADES,
       props: { entity: entities.GRADES, title: titles.GRADES },
+    },
+    {
+      path: '/att-reports-and-grades',
+      component: AttReportsAndGrades,
+      icon: AssignmentTurnedInIcon,
+      title: titles.ATT_REPORTS_AND_GRADES,
+      props: { entity: entities.ATT_REPORTS_AND_GRADES, title: titles.ATT_REPORTS_AND_GRADES },
     },
   ],
   [
