@@ -61,6 +61,7 @@
     "history": "^4.10.1",
     "html-pdf": "^3.0.1",
     "http-status-codes": "^1.4.0",
+    "jewish-dates-core": "^1.0.9",
     "js-file-download": "^0.4.12",
     "jsonwebtoken": "^8.5.1",
     "jss-rtl": "^0.3.0",
