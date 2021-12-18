@@ -122,6 +122,11 @@ export class YemotCall extends CallBase {
             }
         }
 
+        await this.send(
+            this.read({ type: 'text', text: this.texts.howManyLessons },
+                'howManyLessons', 'tap', { max: 2, min: 1, block_asterisk: true, sec_wait: 2 })
+        );
+
         const studentList = await queryHelper.getStudentsByUserIdAndKlassId(this.user.id, klass.key);
         const students = studentList.filter(item => !idsToSkip.has(item.tz));
 
@@ -183,6 +188,7 @@ export class YemotCall extends CallBase {
 
             const attReport = {
                 ...this.params.baseReport,
+                how_many_lessons: this.params.howManyLessons,
                 student_tz: student.tz,
                 abs_count: this.params.absCount,
                 approved_abs_count: this.params.approvedAbsCount,
@@ -207,6 +213,11 @@ export class YemotCall extends CallBase {
                 idsToSkip = new Set(existingReports.map(item => item.student_tz));
             }
         }
+
+        await this.send(
+            this.read({ type: 'text', text: this.texts.howManyLessons },
+                'howManyLessons', 'tap', { max: 2, min: 1, block_asterisk: true, sec_wait: 2 })
+        );
 
         const studentList = await queryHelper.getStudentsByUserIdAndKlassId(this.user.id, klass.key);
         const students = studentList.filter(item => !idsToSkip.has(item.tz));
@@ -261,6 +272,7 @@ export class YemotCall extends CallBase {
 
             const dataToSave = {
                 ...this.params.baseReport,
+                how_many_lessons: this.params.howManyLessons,
                 student_tz: student.tz,
                 grade: this.params.grade,
                 comments: '',
