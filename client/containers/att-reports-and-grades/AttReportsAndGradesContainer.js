@@ -90,21 +90,12 @@ const AttReportsAndGradesContainer = ({ entity, title }) => {
     dispatch(crudAction.customHttpRequest(entity, 'GET', 'get-edit-data'));
   }, []);
 
-  const manipulateDataToSave = (dataToSave) => ({
-    ...dataToSave,
-    report_date:
-      dataToSave.report_date instanceof Date
-        ? dataToSave.report_date.toISOString().substr(0, 10)
-        : dataToSave.report_date.substr(0, 10),
-  });
-
   return (
     <Table
       entity={entity}
       title={title}
       columns={columns}
       filters={filters}
-      manipulateDataToSave={manipulateDataToSave}
       disableAdd={true}
       disableUpdate={true}
       disableDelete={true}
