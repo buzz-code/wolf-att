@@ -18,17 +18,33 @@ export const { findById, store, update, destroy, uploadMultiple } = genericContr
  * @returns {*}
  */
 export async function findAll(req, res) {
-    const dbQuery = new AttReportAndGrade()
+    const dbQuery = new Student()
         .where({ 'att_reports_and_grades.user_id': req.currentUser.id })
         .query(qb => {
-            qb.leftJoin('students', 'students.tz', 'att_reports_and_grades.student_tz')
+            qb.leftJoin('att_reports_and_grades', 'students.tz', 'att_reports_and_grades.student_tz')
             qb.leftJoin('teachers', 'teachers.tz', 'att_reports_and_grades.teacher_id')
             qb.leftJoin('klasses', 'klasses.key', 'att_reports_and_grades.klass_id')
             qb.leftJoin('lessons', 'lessons.key', 'att_reports_and_grades.lesson_id')
-            qb.select('att_reports_and_grades.*')
         });
     applyFilters(dbQuery, req.query.filters);
-    fetchPage({ dbQuery }, req.query, res);
+    const countQuery = dbQuery.clone().query()
+        .countDistinct({ count: ['student_tz', 'teacher_id', 'klass_id', 'lesson_id'] })
+        .then(res => res[0].count);
+    dbQuery.query(qb => {
+        qb.groupBy(['student_tz', 'teacher_id', 'klass_id', 'lesson_id'])
+        qb.select('student_tz', 'teacher_id', 'klass_id', 'lesson_id')
+        qb.min({
+            report_date: 'report_date',
+        })
+        qb.sum({
+            abs_count: 'abs_count',
+            approved_abs_count: 'approved_abs_count',
+        })
+        qb.avg({
+            grade: 'grade',
+        })
+    });
+    fetchPage({ dbQuery, countQuery }, req.query, res);
 }
 
 /**
