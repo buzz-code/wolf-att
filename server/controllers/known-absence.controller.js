@@ -18,7 +18,7 @@ export async function findAll(req, res) {
     const dbQuery = new KnownAbsence()
         .where({ 'known_absences.user_id': req.currentUser.id })
         .query(qb => {
-            qb.leftJoin('students', 'students.id', 'known_absences.student_tz')
+            qb.leftJoin('students', 'students.tz', 'known_absences.student_tz')
             qb.select('known_absences.*')
         });
     applyFilters(dbQuery, req.query.filters);
@@ -34,7 +34,7 @@ export async function findAll(req, res) {
  */
 export async function getEditData(req, res) {
     const [students] = await Promise.all([
-        getListFromTable(Student, req.currentUser.id),
+        getListFromTable(Student, req.currentUser.id, 'tz'),
     ]);
     res.json({
         error: null,

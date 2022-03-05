@@ -6,16 +6,16 @@ import * as crudAction from '../../../common-modules/client/actions/crudAction';
 import { getPropsForAutoComplete } from '../../../common-modules/client/utils/formUtil';
 
 const getColumns = ({ students }) => [
-  { field: 'student_tz', title: 'תז תלמידה' },
+  { field: 'student_tz', title: 'תז תלמידה', editable: 'never' },
   {
     field: 'student_tz',
     title: 'תלמידה',
     columnOrder: 'students.name',
     ...getPropsForAutoComplete('student_tz', students, 'tz'),
   },
-  { field: 'report_date', title: 'תאריך' },
+  { field: 'report_date', title: 'תאריך', type: 'date' },
   { field: 'absnce_count', title: 'מספר חיסורים', type: 'numeric' },
-  { field: 'absence_code', title: 'קוד חיסור' },
+  { field: 'absnce_code', title: 'קוד חיסור' },
 ];
 const getFilters = ({ students }) => [
   { field: 'student_tz', label: 'תז תלמידה', type: 'text', operator: 'like' },
@@ -29,7 +29,7 @@ const getFilters = ({ students }) => [
   },
   { field: 'report_date', label: 'מתאריך', type: 'date', operator: 'date-before' },
   { field: 'report_date', label: 'עד תאריך', type: 'date', operator: 'date-after' },
-  { field: 'absence_code', label: 'קוד חיסור', type: 'text', operator: 'like' },
+  { field: 'absnce_code', label: 'קוד חיסור', type: 'text', operator: 'like' },
 ];
 
 const KnownAbsencesContainer = ({ entity, title }) => {
@@ -60,9 +60,6 @@ const KnownAbsencesContainer = ({ entity, title }) => {
       columns={columns}
       filters={filters}
       manipulateDataToSave={manipulateDataToSave}
-      disableAdd={true}
-      disableDelete={true}
-      disableUpdate={true}
     />
   );
 };
