@@ -26,6 +26,7 @@ import {
   // ORGANIATION_REPORTS,
   DASHBOARD,
   KNOWN_ABSENCES,
+  ATT_REPORTS_WITH_KNOWN_ABSENCES,
 } from '../constants/entity';
 
 const appReducer = (history) =>
@@ -53,6 +54,7 @@ const appReducer = (history) =>
     // [ORGANIATION_REPORTS]: crudReducer(ORGANIATION_REPORTS),
     [DASHBOARD]: crudReducer(DASHBOARD),
     [KNOWN_ABSENCES]: crudReducer(KNOWN_ABSENCES),
+    [ATT_REPORTS_WITH_KNOWN_ABSENCES]: crudReducer(ATT_REPORTS_WITH_KNOWN_ABSENCES),
   });
 
 const rootReducer = (state, action) => {

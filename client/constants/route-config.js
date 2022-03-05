@@ -37,6 +37,7 @@ import ReportEdit from '../containers/report-edit/ReportEditContainer';
 import GroupsPrint from '../containers/groups-print/GroupsPrintContainer';
 import ExcelImport from '../containers/excel-import/ExcelImportContainer';
 import KnownAbsences from '../containers/known-absences/KnownAbsencesContainer';
+import AttReportsWithKnownAbsences from '../containers/att-reports-with-known-absences/AttReportsWithKnownAbsencesContainer';
 
 export default [
   [
@@ -149,6 +150,16 @@ export default [
       props: {
         entity: entities.STUDENT_KLASSES_KLASS_TYPE,
         title: titles.STUDENT_KLASSES_KLASS_TYPE,
+      },
+    },
+    {
+      path: '/report-with-known-absences',
+      component: AttReportsWithKnownAbsences,
+      icon: AssignmentTurnedInIcon,
+      title: titles.ATT_REPORTS_WITH_KNOWN_ABSENCES,
+      props: {
+        entity: entities.ATT_REPORTS_WITH_KNOWN_ABSENCES,
+        title: titles.ATT_REPORTS_WITH_KNOWN_ABSENCES,
       },
     },
     {

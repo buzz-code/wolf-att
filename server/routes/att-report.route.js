@@ -12,7 +12,11 @@ const router = genericRoute(attReportCtrl, router => {
         .get(async (req, res) => {
             await attReportCtrl.getPivotData(req, res);
         });
-    router.route('/get-pivot-data/export-pdf')
+    router.route('/report-with-known-absences')
+        .get(async (req, res) => {
+            await attReportCtrl.reportWithKnownAbsences(req, res);
+        });
+    router.route('/:reportId/export-pdf')
         .post((req, res) => {
             exportPdf(req, res);
         });

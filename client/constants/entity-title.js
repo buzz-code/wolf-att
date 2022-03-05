@@ -20,3 +20,4 @@ export const ORGANIATION_REPORTS = 'דו"ח לארגון צפיה';
 export const DASHBOARD = 'לוח בקרה';
 export const GROUPS_PRINT = 'הדפסת יומנים';
 export const KNOWN_ABSENCES = 'חיסורים ידועים';
+export const ATT_REPORTS_WITH_KNOWN_ABSENCES = 'דו"ח חיסורים כולל';
