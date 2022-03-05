@@ -6,6 +6,11 @@ const router = genericRoute(knownAbsenceCtrl, router => {
         .get((req, res) => {
             knownAbsenceCtrl.getEditData(req, res);
         });
-});
+
+    router.route('/handle-email')
+        .post(async (req, res) => {
+            knownAbsenceCtrl.handleEmail(req, res);
+        });
+}, req => req.path.match('handle-email'));
 
 export default router;

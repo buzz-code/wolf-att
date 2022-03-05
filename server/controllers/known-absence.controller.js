@@ -1,7 +1,9 @@
 import KnownAbsence from '../models/known-absence.model';
 import Student from '../models/student.model';
+import User from '../models/user.model';
 import genericController, { applyFilters, fetchPage } from '../../common-modules/server/controllers/generic.controller';
-import { getListFromTable } from '../../common-modules/server/utils/common';
+import { getDataToSave, getListFromTable } from '../../common-modules/server/utils/common';
+import { getAndParseExcelEmail } from '../../common-modules/server/utils/email';
 
 export const { findById, store, update, destroy, uploadMultiple } = genericController(KnownAbsence);
 
@@ -38,4 +40,24 @@ export async function getEditData(req, res) {
         error: null,
         data: { students }
     });
+}
+
+export async function handleEmail(req, res) {
+    try {
+        const data = await getAndParseExcelEmail(req, res);
+        const columns = ['student_tz', '', 'absnce_count', 'absnce_code'];
+        const body = getDataToSave(data, columns);
+        const report_date = new Date().toISOString().substr(0, 10);
+        body.forEach(item => {
+            item.report_date = report_date;
+        });
+        const currentUser = await User.query({
+            where: { id: req.query.userId },
+            select: ['email', 'id']
+        }).fetch();
+        await uploadMultiple({ body, currentUser });
+        console.log(body.length + ' records were saved successfully');
+    } catch (e) {
+        console.log(e);
+    }
 }
