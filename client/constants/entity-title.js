@@ -19,3 +19,4 @@ export const TEACHER_REPORTS = 'דו"ח למורה';
 export const ORGANIATION_REPORTS = 'דו"ח לארגון צפיה';
 export const DASHBOARD = 'לוח בקרה';
 export const GROUPS_PRINT = 'הדפסת יומנים';
+export const KNOWN_ABSENCES = 'חיסורים ידועים';

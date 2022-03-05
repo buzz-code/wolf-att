@@ -15,6 +15,7 @@ import gradeRoutes from './grade.route';
 import AttReportAndGradeRoutes from './att-report-and-grade.route';
 import reportEditRoutes from './report-edit.route';
 import dashboardRoutes from './dashboard.route';
+import knownAbsenceRoutes from './known-absence.route';
 
 const router = express.Router();
 
@@ -34,5 +35,6 @@ router.use('/grades', gradeRoutes);
 router.use('/att-reports-and-grades', AttReportAndGradeRoutes);
 router.use('/report-edit', reportEditRoutes);
 router.use('/dashboard', dashboardRoutes);
+router.use('/known-absences', knownAbsenceRoutes);
 
 export default router;
