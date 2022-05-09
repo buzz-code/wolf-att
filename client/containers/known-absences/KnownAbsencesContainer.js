@@ -16,6 +16,9 @@ const getColumns = ({ students }) => [
   { field: 'report_date', title: 'תאריך', type: 'date' },
   { field: 'absnce_count', title: 'מספר חיסורים', type: 'numeric' },
   { field: 'absnce_code', title: 'קוד חיסור' },
+  { field: 'sender_name', title: 'שם השולחת' },
+  { field: 'reason', title: 'פירוט הסיבה' },
+  { field: 'comment', title: 'הערה' },
 ];
 const getFilters = ({ students }) => [
   { field: 'student_tz', label: 'תז תלמידה', type: 'text', operator: 'like' },
@@ -30,6 +33,9 @@ const getFilters = ({ students }) => [
   { field: 'report_date', label: 'מתאריך', type: 'date', operator: 'date-before' },
   { field: 'report_date', label: 'עד תאריך', type: 'date', operator: 'date-after' },
   { field: 'absnce_code', label: 'קוד חיסור', type: 'text', operator: 'like' },
+  { field: 'sender_name', label: 'שם השולחת', type: 'text', operator: 'like' },
+  { field: 'reason', label: 'פירוט הסיבה', type: 'text', operator: 'like' },
+  { field: 'comment', label: 'הערה', type: 'text', operator: 'like' },
 ];
 
 const KnownAbsencesContainer = ({ entity, title }) => {
