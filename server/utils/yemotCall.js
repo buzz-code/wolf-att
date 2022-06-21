@@ -167,13 +167,13 @@ export class YemotCall extends CallBase {
             if (await handleAsterisk('absCount')) {
                 continue;
             }
-            await this.send(
-                this.read({ type: 'text', text: this.texts.typeApprovedAbsences },
-                    'approvedAbsCount', 'tap', { max: 1, min: 1, block_asterisk: false })
-            );
-            if (await handleAsterisk('approvedAbsCount')) {
-                continue;
-            }
+            // await this.send(
+            //     this.read({ type: 'text', text: this.texts.typeApprovedAbsences },
+            //         'approvedAbsCount', 'tap', { max: 1, min: 1, block_asterisk: false })
+            // );
+            // if (await handleAsterisk('approvedAbsCount')) {
+            //     continue;
+            // }
 
             isFirstTime = false;
             // this.params.studentReports[student.tz] = {
@@ -191,7 +191,7 @@ export class YemotCall extends CallBase {
                 how_many_lessons: this.params.howManyLessons,
                 student_tz: student.tz,
                 abs_count: this.params.absCount,
-                approved_abs_count: this.params.approvedAbsCount,
+                approved_abs_count: this.params.approvedAbsCount || '0',
                 comments: '',
             };
             await new AttReport(attReport).save();
