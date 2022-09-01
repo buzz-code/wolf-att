@@ -18,7 +18,7 @@ export async function findAll(req, res) {
     const dbQuery = new StudentKlass()
         .where({ 'student_klasses.user_id': req.currentUser.id })
         .query(qb => {
-            qb.leftJoin('students', 'students.tz', 'student_klasses.student_tz')
+            qb.leftJoin('students', { 'students.tz': 'student_klasses.student_tz', 'students.user_id': req.currentUser.id })
             qb.leftJoin('klasses', 'klasses.key', 'student_klasses.klass_id')
             qb.select('student_klasses.*')
         });
@@ -55,7 +55,7 @@ export async function reportByKlassType(req, res) {
     const dbQuery = new StudentKlass()
         .where({ 'klasses.user_id': req.currentUser.id })
         .query(qb => {
-            qb.leftJoin('students', 'students.tz', 'student_klasses.student_tz')
+            qb.leftJoin('students', { 'students.tz': 'student_klasses.student_tz', 'students.user_id': req.currentUser.id })
             qb.leftJoin('klasses', 'klasses.key', 'student_klasses.klass_id')
         });
     applyFilters(dbQuery, req.query.filters);

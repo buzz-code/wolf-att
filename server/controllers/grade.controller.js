@@ -21,7 +21,7 @@ export async function findAll(req, res) {
     const dbQuery = new Grade()
         .where({ 'grades.user_id': req.currentUser.id })
         .query(qb => {
-            qb.leftJoin('students', 'students.tz', 'grades.student_tz')
+            qb.leftJoin('students', { 'students.tz': 'grades.student_tz', 'students.user_id': req.currentUser.id })
             qb.leftJoin('teachers', 'teachers.tz', 'grades.teacher_id')
             qb.leftJoin('klasses', 'klasses.key', 'grades.klass_id')
             qb.leftJoin('lessons', 'lessons.key', 'grades.lesson_id')
