@@ -67,7 +67,7 @@ export async function handleEmail(req, res) {
         }).fetch();
         await uploadMultiple({ body, currentUser });
         console.log(body.length + ' records were saved successfully');
-        res.send({ success: true, message: body.length + 'רשומות נשמרו בהצלחה' });
+        res.send({ success: true, message: body.length + ' רשומות נשמרו בהצלחה' });
     } catch (e) {
         console.log(e);
         res.status(500).send({ success: false, message: e.message });
