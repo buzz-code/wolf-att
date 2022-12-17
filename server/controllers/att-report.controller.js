@@ -54,7 +54,7 @@ export async function getEditData(req, res) {
 
 export async function handleEmail(req, res) {
     try {
-        const {data} = await getAndParseExcelEmail(req, res);
+        const { data } = await getAndParseExcelEmail(req);
         const columns = ['klass_id', 'student_tz', '', 'teacher_id', 'lesson_id', 'how_many_lessons', 'abs_count', 'approved_abs_count'];
         const body = getDataToSave(data, columns);
         const report_date = new Date().toISOString().substr(0, 10);
@@ -67,8 +67,10 @@ export async function handleEmail(req, res) {
         }).fetch();
         await uploadMultiple({ body, currentUser });
         console.log(body.length + ' records were saved successfully');
+        res.send({ success: true, message: body.length + 'רשומות נשמרו בהצלחה' });
     } catch (e) {
         console.log(e);
+        res.status(500).send({ success: false, message: e.message });
     }
 }
 
